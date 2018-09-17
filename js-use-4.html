@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>test4</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+// js会自动管理内存：找出不再使用的变量，然后释放占用的内存
+// 垃圾收集策略：1.标记清除→对于当前不使用的值加上标记，然后再回收其内存；2.引用计数（问题：循环引用）
+// 管理内存方法：对于全局变量使用解除引用→将其值设置为null
+
+// 每个执行环境中都会有一个与之关联的变量对象，环境中定义的所有变量和函数都会保存在这个对象中
+// 我们无法访问这个对象，解析器在处理数据时会在后台使用
+
+// 作用域链
+var color = 'blue';
+function changeColor() {
+	if(color === 'blue') {
+		color = 'red';
+	} else {
+		color = 'blue';
+	}
+}
+
+changeColor();
+console.log("Color is now " + color);
+
+// 延长作用域链
+
+var person = {
+	name: 'niu',
+	age: 18
+}
+// typeof instanceof
+console.log(typeof person);
+console.log(person instanceof Object);
+</script>
+</body>
+</html>

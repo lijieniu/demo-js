@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>test3</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+// arguments
+function syaHi() {
+	console.log('Hello' + arguments[0] + "," + arguments[1])
+}
+
+syaHi("niu", "lijie");
+
+// with语句
+// var qs = location.search.substring(1);
+// var hostname = location.hostname;
+// // 使用with语句
+// with(location) {
+// 	var qs = search.substring(1);
+// 	var hostname = hostname;
+// }
+
+// for-in
+var person = {
+	name: 'niu',
+	age: 30
+}
+
+for(var property in person) {
+	console.log(property)
+}
+
+// 相等和不相等
+// 相等→先转换再比较
+// 全等→仅比较不转换
+
+// 非数值转为数值：Number(), parseInt, parseFloat
+Number(null); // 0
+Number(undefined); // NaN
+Number(''); // 0
+console.log(Number('123sdf')); // NaN
+console.log(parseInt('123dfdf')); // parseInt只找有效数字，直到碰到非有效数字
+
+// 简单（基本）数据类型：Undefined, Null, Boolean, Number, String
+// 复杂数据类型：Object
+// typeof的值：undefined, boolean, string, number, object(对象或者null), function
+console.log(typeof undefined)
+console.log(typeof true)
+console.log(typeof null)
+
+var message = 'undefined';
+var message2 = undefined; // 没有必初始化变量的时候设置为undefined, 但是如果一个变量需要存一个对象，最好初始化为null
+console.log(message == undefined); // false
+console.log(message2 == undefined); // true
+
+// console.log(age); // error
+console.log(typeof age); // undefined
+
+console.log(undefined == null); // undefined派生自null
+
+console.log(true == 1)
+
+console.log(0.15 + 0.15 == 0.3); // true
+console.log(0.1 + 0.2 == 0.3); // false
+
+console.log(Number.MIN_VALUE); // JS能存放的最小数
+console.log(Number.MAX_VALUE); // js能存放的最大数
+
+console.log(NaN == NaN); // NaN与任何值都不相等，包括自身
+
+
+// 严格模式
+// "use strict";
+
+// function使用严格模式
+function test() {
+	// "use strict";
+	// 函数体
+}
+</script>
+</body>
+</html>

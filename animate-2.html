@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="font-size: 375px">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+	<meta name="format-detection" content="telephone=no, address=no">
+    <meta name="keywords" content="豌豆公主,日淘,海淘,代购,母婴,海外代购,日本代购,正品,亚马逊,乐天,全球购,商城,包邮,亚马逊,特卖,减肥,零食,化妆品,美容,护肤,药妆,防晒,美白,丰胸" />
+    <meta name="description" content="豌豆公主是目前唯一由日本供应商直接进驻的跨境电商平台，独家代理日本高端品牌，为您提供尊贵体验, 满¥288包日本直邮。" />
+	
+	<title>animation-2</title>
+
+	<style>
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* animation-1 */
+        .item {
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+            position: absolute;
+            left: 200px;
+            top: 550px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+	</style>
+</head>
+<body>
+    <img id="test" class="item" src="http://ossimg.wandougongzhu.cn/d70b078681821c40f1d65a9228beb7bb.png@720w_4000h_1l.webp" />
+        	
+<!-- <div class="item">
+	
+</div> -->
+
+<script type="text/javascript">
+    function getCSS(obj,style){
+        if(window.getComputedStyle){
+            return getComputedStyle(obj)[style];
+        }
+        return obj.currentStyle[style];
+    } 
+    function parabolMove(json){
+        //设置要操作的元素
+        var obj = json.obj;
+        //设置x轴上的目标值
+        var target = json.target;
+        target = Number(target) || 300;
+        //设置x轴的步长值
+        var stepValue = json.step || 2;
+        //设置x轴的步长
+        var step = 0;
+        //设置回调函数
+        var fn = json.fn;
+        //参数a、b、c
+        var a = json.a;
+        a = Number(a) || 0.01;
+        var b = json.b;
+        b = Number(b) || -1*target/100;
+        var c = json.c;
+        c = Number(c) || 0;
+        //初始值
+        var left = parseFloat(getCSS(obj,'left'));
+        if(left <= target){return;}
+        var top = parseFloat(getCSS(obj,'top')); 
+        //清除定时器
+        if(obj.timer){return;}
+        //声明当前值cur
+        var cur = {};
+        obj.timer = setInterval(function(){
+            //更新步长值
+            step += stepValue; 
+            //更新left和top值
+            var x = left - step;
+            var y = top + a*step*step + b*step + c;
+            if(x > target){
+                x = target;
+            }
+            test.style.left = x + 'px';
+            test.style.top = y + 'px';  
+            //如果到达目标点，清除定时器
+            if(x == target){
+                clearInterval(obj.timer);
+                obj.timer = 0;
+                fn && fn.call(obj);    
+            }  
+        },20);
+    }
+    window.onload = function() {
+        function end() {
+            console.log('end...')
+        }
+        parabolMove({obj: document.getElementById('test'), target: 50, fn: end})
+    }
+</script>
+</body>
+</html>

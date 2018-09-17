@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>test</title>
+</head>
+<body>
+
+<script type="text/javascript">
+// script use 几个属性设置
+// 1. async 立即异步下载外部脚本文件
+// 2. defer 页面被完全加载之后再加载外部脚本文件
+
+function sayScript() {
+	alert('<\/script>'); // 如果代码中出现<\/script>字符串，就会产生错误，可以使用转义字符“\”解决
+}
+sayScript();
+</script>
+</body>
+</html>

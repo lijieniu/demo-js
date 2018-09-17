@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="font-size: 375px">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+	<meta name="format-detection" content="telephone=no, address=no">
+    <meta name="keywords" content="豌豆公主,日淘,海淘,代购,母婴,海外代购,日本代购,正品,亚马逊,乐天,全球购,商城,包邮,亚马逊,特卖,减肥,零食,化妆品,美容,护肤,药妆,防晒,美白,丰胸" />
+    <meta name="description" content="豌豆公主是目前唯一由日本供应商直接进驻的跨境电商平台，独家代理日本高端品牌，为您提供尊贵体验, 满¥288包日本直邮。" />
+	
+	<title>animation-3</title>
+    <link rel="stylesheet" href="addToCar.css">
+</head>
+<body>
+    <div id="actionBar" class="actionBar">
+        <div class="addCart" id="addCart">
+            <button>加入购物车</button>
+        </div>
+    </div>
+    
+<script src="https://cdn.staticfile.org/zepto/1.0rc1/zepto.min.js"></script>
+<script src="./addtocar/addToCar.js"></script>
+<script type="text/javascript">
+
+var screenWidth = document.body.clientWidth || document.documentElement.clientWidth;
+    
+addCart.onclick = function(e){
+    addtoCartAnimation.init(e.clientX,(screenWidth - 200)*5/6 - 10,0.01,'https://ossimg.wandougongzhu.cn/7850045f13b057290024914858c3c803.png@750w_193h_1l.webp', 5, function() {
+        document.getElementById('carContainer') ? actionBar.removeChild(document.getElementById('carContainer')) : ''
+    });
+
+    addtoCartAnimation.move();
+}   
+</script>
+</body>
+</html>

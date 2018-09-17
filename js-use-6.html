@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>test6</title>
+</head>
+<style>
+.container {
+	width: 100%;
+	height: 400px;
+	border: 1px solid #cccccc;
+	border-radius: 30px;
+	background: #eeeeee;
+	font-size: 16px;
+	padding: 20px;
+}
+</style>
+<body>
+<div class="container">
+	<p>A member or candidate who rejects a disciplinary sanction proposed by a Designated Officer of the Professional</p>
+</div>
+<script type="text/javascript">
+
+// 对象是一组无序属性的集合
+// 内部属性使用双中括号
+// es中有两种属性：数据属性和访问器属性
+// 1.数据属性：4个特性：[[Configurable]](是否能delete、修改、修改为访问器属性)、[[Enumerable]](能否通过for-in循环返回属性)、[[Writable]](能否修改属性的值)、[[Value]](这个属性的数据值)
+// 要修改属性默认的特性，需要使用Object.defineProperty()方法
+var person = {};
+Object.defineProperty(person, "name", {
+	writable: false,
+	value: "Nicholas",
+	configurable: false
+});
+console.log(person.name);
+delete person.name;
+person.name = "Greg";
+console.log(person.name);
+// 执行出错，由于前面已经设置过configurable为false
+// Object.defineProperty(person, "name", {
+// 	configurable: true
+// })
+// 调用Object.defineProperty方法时，默认的configurable,writeable,enumerable值都为false
+
+// 2.访问器属性：没有数据值，包含一对getter和setter函数；访问器属性有4个特性：[[Configurable]]、[[Enumerable]]、[[Get]]、[[Set]]
+var book = {
+	_year: 2004,
+	edition: 1
+}
+Object.defineProperty(book, "year", {
+	get: function() {
+		return this._year;
+	},
+	set: function(newValue) {
+		if(newValue > 2004) {
+			this._year = newValue;
+			this.edition += newValue - 2004;
+		}
+	}
+})
+book.year = 2005;
+console.log(book.edition);
+// 使用旧的方式设置访问器属性
+// book.__defineGetter__("year", function() {
+// 	return this._year;
+// })
+// book.__defineSetter__("year", function(newValue) {
+// 	if(newValue > 2004) {
+// 		this._year = newValue;
+// 		this.edition += newValue - 2004;
+// 	}
+// })
+// book.year = 2005;
+// console.log(book.edition)
+
+// 定义多个属性
+var book2 = {};
+Object.defineProperties(book2, {
+	_year: {
+		value: 2004,
+		writable: true
+	},
+	edition: {
+		value: 1,
+		writable: true
+	},
+	year: {
+		get: function() {
+			return this._year;
+		},
+		set: function(newValue) {
+			if(newValue > 2004) {
+				this._year = newValue;
+				console.log(this._year)
+				this.edition += newValue - 2004;
+			}
+		}
+	}
+});
+book2.year = 2005;
+console.log(book2.edition)
+
+// 读取属性的特性：Object.getOwnPropertyDescriptor(属性所在的对象，描述符名称)
+
+// 创建对象：构造函数和字面量创建对象会使用大量的重复代码
+// 1. 工厂模式: 无法识别对象类型
+function createPerson(name, age, job) {
+	var o = new Object();
+	o.name = name;
+	o.age = age;
+	o.job = job;
+	o.sayName = function() {
+		console.log(this.name)
+	}
+	return o;
+}
+var p1 = createPerson("niu", 22, "se");
+
+// 2.构造函数模式: 创建一个对象；将构造函数的作用域赋给新对象；执行构造函数中的代码；返回新对象；
+// 通过new的方式调用函数创建的就是构造函数，否则就是普通函数
+// 构造函数的问题：构造函数中的方法都要在每个实例中创建一遍
+function Person(name, age, job) {
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName = function() {
+		console.log(this.name);
+	}
+}
+var p2 = new Person("niu", 22, "se");
+
+// 构造函数创建的实例都有一个constructor属性，指向构造函数
+console.log(p2.constructor == Person);
+console.log(p2 instanceof Object);
+
+// 3.原型模式：创建的每一个函数都有一个prototype属性，指向一个对象，指向的这个对象包含可以由特定类型的所有实例共享的属性和方法
+// 使用原型对象的好处是让所有对象实例共享它所包含的属性和方法
+function Person() {
+
+}
+Person.prototype.name = "niu";
+Person.prototype.age = 22;
+Person.prototype.job = "se";
+Person.prototype.sayName = function() {
+	console.log(this.name);
+}
+var person1 = new Person();
+person1.sayName();
+
+// 原型对象的理解：只要创建一个函数，就会为该函数创建一个prototype属性，这个属性指向原型对象
+// 所有的原型对象都会有一个constructor属性，这个属性包含一个指向prototype属性所在函数的指针
+// Person.prototype.constructor指向Person
+// 构造函数创建一个实例，该实例会有一个指针指向构造函数的原型对象：__proto__
+// 实例可以通过isPrototypeOf()方法判断是否与原型对象有关系
+console.log(Person.prototype.isPrototypeOf(person1))
+// 构造函数的prototype属性指向原型对象，构造函数的实例的__proto__指向原型对象
+// es5中新增Object.getPrototypeOf返回实例中的__proto__的值
+console.log(Object.getPrototypeOf(person1) == Person.prototype);
+// hasOwnProperty检测一个属性是否存在于实例中
+console.log(person1.hasOwnProperty('name'));
+person1.name = "hahhah";
+console.log(person1.hasOwnProperty('name'));
+// 原型与in操作符：for-of操作符适用于数组，for-in操作符适用于对象；for-in返回的是通过对象访问的，可枚举的属性，包括实例中的属性和原型中的属性
+// 判断一个属性存在于对象还是原型中的方法
+function hasPrototypeProperty(object, name) {
+	return !object.hasOwnProperty(name) && (name in object); // 存在于原型中
+}
+// Object.keys方法返回一个包含所有可枚举属性的字符串数组；只针对对象上可枚举的实例属性；
+function Person2() {}
+Person2.prototype.name = "niu";
+Person2.prototype.age = 29;
+Person2.prototype.job = "hahh";
+var keys = Object.keys(Person2.prototype);
+console.log(keys);
+var p1 = new Person();
+p1.name = "Rob";
+p1.age = 30;
+var p1keys = Object.keys(p1);
+console.log(p1keys);
+// Object.getOwnPropertyNames()返回所有的实例属性，包括可枚举和不可枚举；
+Object.getOwnPropertyNames(Person2.prototype);
+// 更简单的原型方法,此方法相当于重写了prototype对象，因此constructor属性也就变成了新对象的constructor属性（指向Object构造函数），不再指向Person3
+function Person3() {}
+Person3.prototype = {
+	constructor: Person3,
+	name: "li",
+	age: 30
+}
+// 可以通过设置属性constructor指向Person3,但是这种方法设置的constructor是可枚举的，默认情况下，constructor是不可枚举的，因此需要使用Object.defineProperty设置
+Object.defineProperty(Person3.prototype, "constructor", {
+	enumerable: false,
+	value: Person3
+})
+// 原型的动态性：在原型中查找值得过程是一次搜索，我们对原型对象所作得任何修改都能够立即从实例上反映出来——即使是先创建了实例再修改原型
+var friend = new Person3();
+Person3.prototype.sayHi = function() {
+	console.log("hi");
+}
+friend.sayHi();
+
+// 原生对象的原型: 通过原生对象的模型，可以取得所有默认方法的引用，也可以定义新方法
+console.log(typeof Array.prototype.sort); // function
+String.prototype.startWith = function(text) {
+	return this.indexOf(text) == 0;
+}
+console.log("Hello world!".startWith("Hello"));
+// 原型对象的问题：所有实例都取得了相同的属性值；最大的问题是实例共享（对于包含引用类型的属性来说，共享问题比较突出）；
+function Person4() {
+
+}
+Person4.prototype = {
+	constructor: Person4,
+	name: 'hah',
+	age: 29,
+	job: 'hah',
+	friends: ['a', 'b'],
+	sayName: function() {
+		console.log(this.name);
+	}
+}
+var person41 = new Person4();
+var person42 = new Person4();
+person41.friends.push('gg');
+console.log(person41.friends === person42.friends);
+// 组合使用构造函数模式和原型模式：可以解决实例共享问题
+// 动态原型模式：独立使用构造函数和原型时别人会对这种方式困惑，因此产生了动态原型模式，在构造函数中初始化原型
+function Person5(name, job, age) {
+	this.name = name;
+	this.job = job;
+	this.age = age;
+	if(typeof this.sayName != "function") {
+		Person5.prototype.sayName = function() {
+			console.log(this.name)
+		}
+	}
+}
+// 寄生构造函数模式：创建一个函数，该函数的作用仅仅时封装创建对象的代码，然后再返回新创建的对象
+function Person6(name, age, job) {
+	var o = new Object();
+	o.name = name;
+	o.age = age;
+	o.job = job;
+	o.sayName = function() {
+		console.log(this.name);
+	};
+	return o;
+}
+// 稳妥构造函数模式：没有公共属性，方法不引用this对象。稳妥模式适合在一些安全的环境中
+
+
+// 继承：主要依靠原型链实现
+// 原型链
+function SuperType() {
+	this.property = true;
+}
+SuperType.prototype.getSuperValue = function() {
+	return this.property;
+}
+function SubType() {
+	this.subproperty = false;
+}
+SubType.prototype = new SuperType();
+SubType.prototype.getSubValue = function() {
+	return this.subproperty;
+}
+var instance = new SubType();
+console.log(instance.getSuperValue());
+
+// 原型链的问题：1.实例共享；2.创建子类型的实例时，不能向超类型的构造函数中传递参数；
+// 借用构造函数（也叫做伪造对象或经典继承）的技术可以解决原型链的问题；
+function SuperType2() {
+	this.colors = ["red", "blue", "green"];
+}
+function SubType2() {
+	SuperType.call(this);
+}
+// 传递参数
+function SuperType3(name) {
+	this.name = name;
+}
+function SubType3() {
+	SuperType.call(this, "niu");
+}
+// 构造函数引起的问题是方法不能复用
+// 可以使用组合继承的方式解决
+function SuperType4(name) {
+	this.name = name;
+}
+SuperType.prototype.sayName = function() {
+	console.log(this.name);
+}
+
+</script>
+</body>
+</html>

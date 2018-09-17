@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>test4</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+// object类型：大多数引用类型的值都是Object类型的实例
+// Object实例的创建：
+// 1.new关键字
+var person = new Object();
+person.name = 'niu';
+person.age = 29;
+
+// 2.字面量: 使用字面量定义对象时，不会调用Object构造函数
+var person = {
+	name: "niu",
+	age: 29
+}
+
+// Array类型：
+// Array的创建方式：1.构造函数
+var colors = new Array();
+var colors2 = new Array(20);
+var colors3 = new Array("red", "green", "blue");
+var colors4 = Array(3); // 可以省略new
+// 2.字面量表示
+var names = ["niu", "li"];
+// 判断是否是数组
+console.log(names instanceof Array)
+// es5新增方法
+console.log(Array.isArray(names))
+
+// 栈：数组push返回length;pop返回最后一项
+// 队列：shift返回第一项
+
+// 数组排序：reverse和sort
+// sort排序会先调用toString（）方法, 因此排序是对字符串的排序
+var values = [0, 1, 5, 10, 15, 2];
+// values.sort();
+console.log(values); // 0, 1, 10, 15, 5
+
+// 可以使用传入一个函数实现真正的排序
+function compare(value1, value2) {
+	return value1 - value2; // 正序
+	// return value2 - value1; 倒叙
+}
+values.sort(compare)
+console.log(values)
+
+// 数组操作
+// concat（）返回一个新的数组，原数组保持不变
+// slice() 返回开始位置到结束位置的项，但是不包括结束位置，原数组保持不变
+// splice（）：返回删除的元素，如果没有删除则返回空数组，元素组会改变
+// 1.删除元素splice(1, 2),从位置为1的元素开始删除2个元素
+// 2.splice(1, 0, items),从位置为1的地方开始插入items
+// 3.splice(2, 1, "red", "green"),从位置2删除一个元素，然后再插入两个元素
+var colors = ["red", "green", "blue"];
+var removed = colors.splice(0, 1);
+console.log(colors);
+console.log(removed);
+
+removed = colors.splice(1, 0, "yellow", "orange");
+console.log(colors);
+console.log(removed);
+
+removed = colors.splice(1, 1, "red", "purple");
+console.log(colors);
+console.log(removed);
+
+// 获取位置的方法：indexOf,lastIndexOf
+
+// 迭代方法
+// 1. every：如果数组中每一项都为true则返回true
+// 2. filter：返回true的项组成的数组
+// 3. forEach：没有返回值
+// 4. map：返回每一项处理后的数组
+// 5. some：如果函数对任一项返回true，则返回true
+
+// 归并方法
+// 1. reduce:从数组的第一项开始，迭代数组中的所有项，然后构建一个最终返回的的值
+// 2. reduceRight:从数组的最后一项开始
+var values = [1, 2, 3, 4, 5];
+var sum = values.reduce(function(prev, cur, index, array) {
+	return prev + cur
+})
+console.log(sum)
+
+// Date类型
+
+// Date.parse() 返回毫秒数
+var someDate = new Date(Date.parse("May 25, 2004")); // 如果将日期字符串直接传给new Date()则其实是调用了Date.parse
+console.log(someDate)
+
+// Date.UTC() 返回毫秒数
+var someDate2 = new Date(Date.UTC(2018, 8, 28, 21, 06, 33))
+console.log(someDate2)
+
+// RegExp类型：var expression = / pattern / flags;
+// /g全局模式；/i 不区分大小写；/m 多行模式
+// 字面量定义正则
+var pattern1 = /at/g;
+var pattern2 = /[bc]at/i;
+
+// 元字符：（[{\^$ | ) ? * + .]}
+
+// 使用RegExp构造函数
+var pattern3 = new RegExp("[bc]at", "i");
+var pattern4 = new RegExp("\\[bc\\]at", "i");
+
+// RegExp实例属性：global, ignoreCase, lastIndex, multiline, source
+
+// RegExp实例方法：
+// 1.exec:捕获组：返回第一个匹配项信息的数组，如果没有匹配项返回null；返回的Array数组中包含两个额外的属性：index和input
+var text = "mom and dad and baby";
+var pattern5 = /mom( and dad (and baby)?)?/gi;
+var matches = pattern5.exec(text);
+console.log(matches.index);
+console.log(matches.input);
+console.log(matches[0]);
+console.log(matches[1]);
+console.log(matches[2]);
+
+// 2.test:匹配返回true,否则返回false
+
+// Function类型
+function sum2(num1, num2) {
+	return num1 + num2;
+}
+
+console.log(sum2(10, 10));
+var anotherSum = sum2;
+console.log(anotherSum(10, 10));
+
+sum2 = null;
+console.log(anotherSum(10, 10));
+
+// 函数没有重载，同名函数会被覆盖
+// 函数声明：解析器会先读取函数声明，并使其在任何代码之前可用；函数表达式则需要在执行到的时候才能被解析
+console.log(sum3(10, 10));
+function sum3(num1, num2) {
+	return num1 + num2;
+}
+
+// console.log(sum4(10, 10)); // 报错
+// var sum4 = function(num1, num2) {
+// 	return num1 + num2;
+// }
+
+var data = [{name: 'niu', age: 28}, {name: 'li', age: 29}];
+data.sort(compareFunction("age"));
+function compareFunction(propertyName) {
+	return function(obj1, obj2) {
+		return obj2[propertyName] - obj1[propertyName];
+	};
+}
+console.log(data)
+
+// 函数内部属性：arguments和this
+// 1. arguments: 还有一个callee的属性，是一个指针，指向拥有这个arguments对象的函数
+function factorial() {
+	if(num <= 1) {
+		return 1;
+	} else {
+		return num * factorial(num -1);
+	}
+}
+
+function factorial2() {
+	if(num <= 1) {
+		return 1;
+	} else {
+		return num * arguments.callee(num - 1);
+	}
+}
+
+// 函数对象还有一个属性：caller，保存着调用当前函数的函数的引用
+function outer() {
+	inner();
+}
+
+function inner() {
+	console.log(inner.caller);
+}
+
+outer();
+
+// 函数也是对象，包含两个属性：length（函数接收的命名参数的个数）
+// property属性：不可枚举，使用for-in无法发现
+
+// apply:参数以数组的方式传入
+// call: 参数逐个传入
+// 扩充作用域
+window.color = "red";
+var o = {
+	color: "blue"
+};
+function sayColor() {
+	console.log(this.color)
+}
+sayColor(); // red
+sayColor.call(this); // red
+sayColor.call(window); // red
+sayColor.call(o); // blue
+
+// bind:创建一个函数的实例，其this值会被绑定到传给bind（）函数的值
+var oSayColor = sayColor.bind();
+oSayColor(); // blue
+
+// 基本包装类型：Boolean, Number, String
+// String类型：字符串操作返回新字符串，对原字符串没有影响
+// 1.字符方法：charAt()\charCodeAt();charCodeAt输出编码
+// 2.字符串操作方法：concat();用于拼接字符串，返回新的字符串，原字符串不变
+// slice和substr会将第一个负的参数加上字符串的长度，substring会将所有的负参数转为0
+
+// indexOf和lastIndexOf
+var stringValue = "Lorem insum dolor sit amet, consecteur adipisicing elit";
+var positions = new Array();
+var pos = stringValue.indexOf('e');
+while(pos > -1) {
+	positions.push(pos);
+	pos = stringValue.indexOf("e", pos + 1);
+}
+console.log(positions)
+
+// replace
+var text = "cat, bat, sat, fat";
+var result = text.replace("at", "ond");
+console.log(result);
+result = text.replace(/at/g, "ond");
+console.log(result);
+
+function htmlEscape(text) {
+	return text.replace(/[<>"&]/g, function(match, pos, originalText) {
+		switch(match) {
+			case "<":
+				return "&lt;";
+			case ">":
+				return "&gt;";
+			case "&":
+				return "&amp;";
+			case "\"": 
+				return "&quot;";
+		}
+	})
+}
+console.log(htmlEscape("<p></p>"))
+
+// 内置对象
+// 1.Global:全局对象
+// ①URI编码方法: encodeURI(针对整个uri进行编码，不对本身的冒号、正斜杠、问号和井号编码)\encodeURIComponent（对所有非标准字符进行编码）
+// ②URI解码方法：decodeURI\decodeURIComponent
+// eval（要执行的js串）
+
+// window对象
+</script>
+</body>
+</html>
