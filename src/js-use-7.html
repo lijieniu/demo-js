@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 函数声明的一个重要特性就是函数声明提升；
+    // 匿名函数有时候也叫拉姆达函数
+    sayHi();
+    function sayHi() {}; // 正确
+    // sayHi();
+    // var sayHi = function() {}; // 错误
+
+    // 递归：函数通过名字调用自身
+    // 阶乘
+    function factorial(num) {
+        if(num <= 1) {
+            return 1;
+        } else {
+            return num * factorial(num - 1);
+        }
+    }
+
+    // 优化
+    function factorial2(num) {
+        if(num <= 1) {
+            return 1;
+        } else {
+            return num * arguments.callee(num - 1);
+        }
+    }
+</script>
+</html>

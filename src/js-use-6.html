@@ -286,8 +286,18 @@ function SubType3() {
 function SuperType4(name) {
 	this.name = name;
 }
-SuperType.prototype.sayName = function() {
+SuperType4.prototype.sayName = function() {
 	console.log(this.name);
+}
+
+function SubType4(name, age) {
+    // 继承属性
+    SuperType4.call(this, name);
+    this.age = age;
+}
+SubType4.prototype = new SuperType4();
+SubType.prototype.sayAge = function() {
+    console.log(this.age);
 }
 
 </script>
