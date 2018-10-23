@@ -99,27 +99,118 @@
 		</div>
 	</div>
 </div>
-<script src="https://cdn.staticfile.org/zepto/1.0rc1/zepto.min.js"></script>
+<!-- <script src="https://cdn.staticfile.org/zepto/1.0rc1/zepto.min.js"></script>
 <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
-<script src="fly.min.js"></script>
+<script src="fly.min.js"></script> -->
 
 <script type="text/javascript">
 
-	var flyer = jQuery('<img class="flyer-img" src="http://ossimg.wandougongzhu.cn/6deeeac606f5283ac44807046676cad4.png@360w_4000h_1l.webp">'); //抛物体对象   
-		flyer.fly({   
-            start: {   
-                left: event.pageX,//抛物体起点横坐标   
-                top: jQuery(window).height() - 30 //抛物体起点纵坐标   
-            },   
-            end: {   
-                left: jQuery('.fixed-operate-bar-cart-box').offset().left + 25,//抛物体终点横坐标   
-                top: jQuery(window).height() - 30, //抛物体终点纵坐标   
-            },   
-            onEnd: function() {   
-                $('.flyer-img').hide()
-			},
-			speed: 0.8   
-        });
+    // 高阶函数
+    // function add(x, y, f) {
+    //     return f(x) + f(y);
+    // }
+    // var result = add(-5, 6, Math.abs);
+    // console.log(result);
+
+    // 闭包
+    // 1.要了解闭包先要了解一下js中的作用域：全局和局部作用域；js中没有块级作用域：比如if语句中定义的变量
+    // 无块级作用域
+    if(true) {
+        var a = 111;
+    }
+    console.log(a);
+
+    function test() {
+        var b = 222;
+    }
+    test();
+    // console.log(b); // 报错
+
+    // 如果在函数中定义一个变量没有使用var关键字，则该变量是一个全局变量
+    function test2() {
+        c = 333;
+    }
+    test2();
+    console.log(c);
+
+    // 那么我们怎样才能在全局中访问局部变量呢？
+    function test3() {
+        var a3 = 444;
+        function t3() {
+            return a3;
+        }
+        return t3;
+    }
+    console.log(test3()());
+    // 什么是闭包？其实上面的t3就是一个闭包
+    // 个人理解：闭包其实就是在函数内部嵌套的另一个函数，它的作用就是可以让全局作用域访问局部作用域中的变量
+    // 使用闭包的作用：读取函数内部的变量；让这些变量始终保持在内存中；
+    function f1() {
+        var n = 999;
+        nAdd = function() {
+            n +=1;
+        }
+        function f2() {
+            console.log(n);
+        }
+        return f2
+    }
+    var result = f1();
+    result();
+    nAdd();
+    result();
+    
+    // function func1() {
+    //     var a = 999;
+    //     function func2() {
+    //         console.log(a);
+    //     }
+    //     return func2;
+    // }
+
+    // var func = func1();
+    // func();
+
+    // var name = "The Window";
+    // var object = {
+    //     name: "My Object",
+    //     getNameFunc: function() {
+    //         return function() {
+    //             return this.name;
+    //         }
+    //     }
+    // }
+    // console.log(object.getNameFunc()());
+    // // console.log(object.getNameFunc().call(object));
+
+    // var name2 = "The Window";
+    // var object2 = {
+    //     name: "My Object",
+    //     getNameFunc: function() {
+    //         var that = this;
+    //         return function() {
+    //             return that.name;
+    //         }
+    //     }
+    // };
+    // console.log(object2.getNameFunc()());
+
+
+	// var flyer = jQuery('<img class="flyer-img" src="http://ossimg.wandougongzhu.cn/6deeeac606f5283ac44807046676cad4.png@360w_4000h_1l.webp">'); //抛物体对象   
+	// 	flyer.fly({   
+    //         start: {   
+    //             left: event.pageX,//抛物体起点横坐标   
+    //             top: jQuery(window).height() - 30 //抛物体起点纵坐标   
+    //         },   
+    //         end: {   
+    //             left: jQuery('.fixed-operate-bar-cart-box').offset().left + 25,//抛物体终点横坐标   
+    //             top: jQuery(window).height() - 30, //抛物体终点纵坐标   
+    //         },   
+    //         onEnd: function() {   
+    //             $('.flyer-img').hide()
+	// 		},
+	// 		speed: 0.8   
+    //     });
 
 	// $('body').on('click', '.parabola-test.begin', function() {
 	// 	addCar({
