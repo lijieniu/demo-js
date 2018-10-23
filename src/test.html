@@ -160,6 +160,92 @@
     nAdd();
     result();
     
+
+    // javascript运行机制
+    // 1.js运行是按照语句出现的顺序执行的
+    var aa = 1;
+    console.log(aa);
+    var bb = 2;
+    console.log(bb);
+
+    setTimeout(function() {
+        console.log('定时器开始啦');
+    });
+
+    new Promise(function(resolve) {
+        console.log('创建一个新的Promise');
+        resolve();
+    }).then(function() {
+        console.log('执行then');
+    });
+    console.log('代码执行结束');
+    // 2.js是单线程语言，js中的任务：同步任务和异步任务
+    // 同步任务会直接在主线程中执行，异步任务会进入一个event table，然后注册回调函数，当主线程上的任务执行完之后，主线程会调用事件队列中的
+    // 回调函数进行执行
+    // js引擎中存在monitoring process进程，会持续不断的检查主线程是否为空
+    // var data = [];
+    // $.ajax({
+    //     url: 'www.baidu.com',
+    //     data: data,
+    //     success: function() {
+    //         // 回调函数代码
+    //     }
+    // });
+
+    // 3.setTimeout: 准确的说应该是x秒之后将task()放入事件队列中而不是立即执行
+    setTimeout(function() {
+        // task()
+    }, 3000);
+    // sleep(10000000); // 主线程sleep完之后再执行task
+    // 任务：宏任务和微任务
+    setTimeout(function() {
+        console.log("setTimeout");
+    });
+    new Promise(function(resolve) {
+        console.log('promise');
+        resolve();
+    }).then(function() {
+        console.log('then');
+    });
+    console.log('console');
+
+    // 终极例子
+    console.log('1');
+
+    setTimeout(function() {
+        console.log('2');
+        // process.nextTick(function() {
+        //     console.log('3');
+        // })
+        new Promise(function(resolve) {
+            console.log('4');
+            resolve();
+        }).then(function() {
+            console.log('5')
+        })
+    })
+    // process.nextTick(function() {
+    //     console.log('6');
+    // })
+    new Promise(function(resolve) {
+        console.log('7');
+        resolve();
+    }).then(function() {
+        console.log('8')
+    })
+
+    setTimeout(function() {
+        console.log('9');
+        // process.nextTick(function() {
+        //     console.log('10');
+        // })
+        new Promise(function(resolve) {
+            console.log('11');
+            resolve();
+        }).then(function() {
+            console.log('12')
+        })
+    })
     // function func1() {
     //     var a = 999;
     //     function func2() {
