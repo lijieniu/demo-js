@@ -35,5 +35,29 @@
             return num * arguments.callee(num - 1);
         }
     }
+
+    // 闭包与变量: 闭包只能取得包含函数中任何变量的最后一个值；
+    function createFunctions() {
+        var result = new Array();
+        for(var i = 0; i < 10; i++) {
+            result[i] = function() {
+                return i;
+            };
+        }
+        return result;
+    }
+    function createFunctions2() {
+        var result = new Array();
+        for(var i = 0; i < 10; i++) {
+            result[i] = function(i) {
+                return function() {
+                    return i;
+                }
+            }(i);
+        }
+        return result;
+    }
+    console.log(createFunctions2()[5]()); // 10
+
 </script>
 </html>
