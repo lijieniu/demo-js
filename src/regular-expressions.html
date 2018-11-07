@@ -85,6 +85,41 @@
 
         // 分支
         // | 表示或者
+
+
+        // 正则中的方法
+        // RegExp：正则的构造函数
+        new RegExp('abc');
+        new RegExp('abc', 'gi');
+        var regexp = new RegExp(/abc/m, 'gi'); // 如果第一个参数的正则表达式定义了修饰符，第二个参数又有值，则以第二个参数中定义的修饰符为准
+
+        // RegExp三个属性：lastIndex，source，flags
+        console.log(regexp.flags);
+
+        // match
+        // replace：给定字符串替换匹配结果，返回新的替换后的文本，原文本不变；
+        // 第一个参数是一个字符串或者正则表达式，它的作用是匹配
+        'abc-xyz-abc'.replace(/abc/g, 'biu');
+        // 第二个参数是字符串或者函数，它的作用是替换
+        // $数字：代表相应顺序的捕获组
+        '@abc-xyz-$abc'.replace(/([^-]+)abc/g, '$1abc');
+        // $&：代表匹配结果
+        '@abc-xyz-$abc'.replace(/([^-]+)abc/g, '{$&}');
+        // $`：代表匹配结果左边的文本; $'：代表匹配结果右边的文本
+        '@abc-xyz-$abc'.replace(/([^-]+)abc/g, '{$`}'); // '{}-xyz-{@abc-xyz-}'
+        // 第二个参数是函数：函数的返回值就是要替换的内容
+        // 如果没有返回值就返回undefined，替换的内容就是undefined
+        console.log('abc-xyz-abc'.replace(/abc/g, match => `{${match}}`));
+        // 如果有捕获组，函数的后顺位参数与捕获组一一对应
+        console.log('@abc3-xyz-$abc5'.replace(/([^-]+)abc(\d+)/g, (match, $1, $2) => {
+            return `{${$1}${match}${$2}}`;
+        }));
+
+        // exec：根据参数返回匹配结果
+        /xyz/.exec('abc-xyz-abc');
+
+        // test：找出原文本是否有匹配项，多用于表单验证
+        /xyz/.test('abc-xyz-abc');
     </script>
 </body>
 </html>
