@@ -12,7 +12,79 @@
         var result1 = 'hello'.match(/h/); // 这里的hello就是普通字符
         console.log('result1 = ', result1);
 
-        // 开始与结束：^字符代表的是文本的开始
+        // 开始与结束：^字符代表的是文本的开始，紧跟着它的字符必须是被匹配文本的第一个字符
+        var result2 = 'regex'.match(/^r/);
+        console.log('result2 = ', result2);
+        // $与^正好相反，它代表文本的结束
+
+        // 带反斜杠的元字符
+        // \b匹配一个单词边界：单词和空格之间的位置，就是所谓单词边界
+        var result3 = 'hello regex'.match(/\bregex$/);
+        console.log(result3);
+        // 单词边界对中文无效
+    
+        // \d匹配一个数字
+        var result4 = '123'.match(/\d/);
+        console.log(result4);
+
+        // \s匹配一个空白字符：空白字符不是空格，它是空格的超集
+        var result5 = 'a b'.match(/\w\s\w/);
+        console.log(result5);
+
+        // \w匹配一个字母或者一个数字或者一个下划线
+        var result6 = 'ab'.match(/\w/); // 不能是中文
+        console.log(result6);
+
+        // .匹配换行符之外的任意单个字符
+        // 如果普通字符中不存在换行符，那么.和[\b\B]和[\d\D]和[\s\S]和[\w\W]等价
+        // 如果存在换行符，那么[.|\n]和[\b\B]和[\d\D]和[\s\S]和[\w\W]等价
+        var result7 = '@regex'.match(/./);
+        console.log(result7);
+
+        // 量词：它重复的是紧贴在它前面的某个集合; 如果一个量词紧跟在另一个量词后面则会报错
+        // ？重复0此或者1次，也就是有或者没有
+        // + 重复1次或者多次，也就是至少一次
+        // * 重复0次或者多次，也就是任意次数
+        // {n} 重复n次
+        // {n,} 重复n次或者更多次
+        // {n, m} 重复n次到m次之间，包含n和m
+        var result8 = 'gooooogle'.match(/go{2,5}gle/);
+        console.log(result8);
+
+        // 贪婪模式和非贪婪模式
+        'https'.match(/http(s)?/);
+        'https'.match(/http(s)??/);
+        // 上面提到量词不能紧跟在另一个量词后面，但是这里的？不是一个量词，而是一个模式切换符，从贪婪模式切换到非贪婪模式
+        // 贪婪模式就是在规则下尽可能多的匹配文本，紧跟在量词后的？就可以开启非贪婪模式，怎么省事怎么来；
+        // 这里的？必须紧跟在量词后面，否则它自己就变成量词了
+
+        // 字符组
+        // 方括号在正则中表示一个区间，最终只匹配一个字符
+        // 字符组是一个独立的，元字符不需要转义
+        '$'.match(/[$&@]/);
+        // 有两个字符在字符组中有特殊含义：^在字符组中表示取反
+        // - 在字符组中表示连字符：匹配范围在它的左边字符和右边字符之间
+        var result9 = 'regex'.match(/[^abc]/);
+        console.log(result9);
+
+        // 捕获组和非捕获组
+        // () 将它其中的字符集合打包成一个整体，然后量词就可以操作这个整体了
+        'i love you very very very much'.match(/i love you (very )+much/);
+        // 正则内捕获
+        // 匹配<div>标签
+        '<div>hello regex</div>'.match(/<div>.*<\/div>/);
+        // 匹配任意标签，或者匹配自定义标签：需要用到正则得捕获，使用\数字的形式
+        '<App>hello regex</div>'.match(/<([a-zA-Z]+).*<\/\1>/);
+        // 更复杂的情况：如果有嵌套的圆括号，那么捕获的引用是先递归的，然后才是下一个顶级捕获
+        '<App>hello regex</App><p>A</p><p>hello regex</p>'.match(/<((A|a)pp)>(hello regex)+<\/\1><p>\2<\/p><p>\3<\/p>/);
+        // 正则外捕获
+        '@abc'.match(/@(abc)/);
+        console.log(RegExp.$1);
+        // replace中使用正则外捕获
+        console.log('hello ***regex**'.replace(/\*{3}(.*)\*{2}/, '<strong>$1</strong>'));
+
+        // 分支
+        // | 表示或者
     </script>
 </body>
 </html>
