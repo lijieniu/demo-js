@@ -104,6 +104,24 @@
 <script src="fly.min.js"></script> -->
 
 <script type="text/javascript">
+    // 一个简单的测试：关于值传递和引用传递
+    function changeAgeAndReference(person) {
+        person.age = 25;
+        person = { 
+            name: 'John',
+            age: 50
+        };
+        return person;
+    }
+    var personObj1 = {
+        name: 'Alex',
+        age: 30
+    };
+    var personObj2 = changeAgeAndReference(personObj1);
+    console.log(personObj1);
+    console.log(personObj2);
+
+
     // 单例设计模式：
 
 
