@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片生成工具</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: "微软雅黑"
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #content, #realContent {
+            margin: 50px auto;
+            display: inline-block;
+        }
+        #content {
+            width: 400px;
+        }
+        #realContent {
+            width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding-left: 20px;
+        }
+        .inputProp {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .prop {
+            display: flex;
+            margin: 10px 0;
+        }
+        .prop .propName {
+            height: 40px;
+            width: 150px;
+        }
+        .propName {
+            height: 30px;
+            font-size: 18px;
+        }
+        #content .propName {
+            width: 100px;
+            display: inline-block;
+        }
+        textarea {
+            font-size: 18px;
+            font-weight: normal;
+            outline: none;
+            padding: 5px 10px;
+            width: 200px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+        }
+        .realValue {
+            font-size: 18px;
+            font-weight: normal;
+            display: inline-block;
+            word-break: break-all;
+            width: 400px;
+            margin-left: 5px;
+        }
+        #downLoadImg {
+            width: 100px;
+            height: 35px;
+            margin-left: 180px;
+            margin-top: 30px;
+            font-size: 15px;
+            padding: 5px;
+            border-radius: 5px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="content">
+            <div class="inputProp">
+                <label class="propName">品牌</label>
+                <textarea rows="2" rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">名称</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">产地</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">规格</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">有效期</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">适应人群</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">产品特点</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">主要成分</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <div class="inputProp">
+                <label class="propName">注意事项</label>
+                <textarea rows="2" class="propInput"/></textarea>
+            </div>
+            <button id="downLoadImg">生成图片</button>
+        </div>
+        <span>预览=></span>
+        <div id="realContent">
+            <div class="prop" style="font-weight: bold;">
+                <label style="width: 100px; font-size: 33.45px;" class="propName">品牌:</label>
+                <div class="realValue" style="font-size: 33.45px;font-weight: bold;"></div>
+            </div>
+            <div class="prop" style="font-weight: bold;">
+                <label style="width: 100px; font-size: 33.45px;" class="propName">名称:</label>
+                <div class="realValue" style="font-size: 33.45px;font-weight: bold;"></div>
+            </div>
+            <div class="prop" style="font-weight: bold;">
+                <label style="width: 100px; font-size: 33.45px;" class="propName">产地:</label>
+                <div class="realValue" style="font-size: 33.45px;font-weight: bold;"></div>
+            </div>
+            <div class="prop">
+                <label style="width: 100px; font-size: 33.45px; font-weight: bold;" class="propName">规格:</label>
+                <div style="width: 150px; font-size: 33.45px; font-weight: bold;" class="realValue"></div>
+                <label style="width: 120px; font-size: 31.25px;" class="propName">有效期:</label>
+                <div style="width: 150px; font-size: 31.25px;" class="realValue"></div>
+            </div>
+            <div class="prop">
+                <label class="propName" style="font-size: 31.25px;">适应人群:</label>
+                <div class="realValue" style="font-size: 31.25px;"></div>
+            </div>
+            <div class="prop">
+                <label class="propName" style="font-size: 31.25px;">产品特点:</label>
+                <div class="realValue" style="font-size: 31.25px;"></div>
+            </div>
+            <div class="prop">
+                <label class="propName" style="font-size: 31.25px;">主要成分:</label>
+                <div class="realValue" style="font-size: 31.25px;"></div>
+            </div>
+            <div class="prop">
+                <label class="propName" style="font-size: 31.25px;">注意事项:</label>
+                <div class="realValue" style="font-size: 31.25px;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.staticfile.org/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            var inputList = document.querySelectorAll('.propInput');
+        var realValueList = document.querySelectorAll('.realValue');
+        for(var i = 0; i < inputList.length; i++) {
+            (function(i) {
+                inputList[i].addEventListener('input', function(e) {
+                    realValueList[i].innerHTML = inputList[i].value.replace(/\n/gm, '<br>');
+                });
+            })(i);
+        }
+        document.getElementById('downLoadImg').addEventListener('click', function(e) {
+            var targetDom = $('#realContent');
+            var copyDom = targetDom.clone();
+            copyDom.width('709px');
+            copyDom.height('1152px');
+            $('body').append(copyDom);
+            // document.getElementById('realContent').innerHTML = document.querySelector('.propInput').value.replace(/\n/gm, '<br>');
+            html2canvas(copyDom[0]).then(function(canvas) {
+                // var imgUri = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+                // window.location.href = imgUri;
+                // canvas.setAttribute('width', 350);
+                // canvas.setAttribute('height', 600);
+                var a = document.createElement('a');
+                a.href = canvas.toDataURL();
+                a.download = 'img_' + new Date().getTime() + '.png';
+                a.click();
+            });
+        });
+        });
+        
+    </script>
+</body>
+</html>
