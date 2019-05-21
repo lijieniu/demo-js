@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .shake {
+            display: inline-block;
+            transform-origin: center center;
+            animation: shake 1s infinite ease-in-out 0s;
+        }
+        @keyframes shake {
+            0% {
+                transform: rotate(0);
+            }
+            30% {
+                transform: rotate(0);
+            }
+            35% {
+                transform: rotate(-15deg);
+            }
+            45% {
+                transform: rotate(15deg);
+            }
+            50% {
+                transform: rotate(0deg);
+            }
+            55% {
+                transform: rotate(-15deg);
+            }
+            65% {
+                transform: rotate(15deg);
+            }
+            70% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <p class="shake">hahahhha</p>
+</body>
+<!-- <frameset rows="160, *">
+    <frame src="js-use-2.html" name="topFrame">
+</frameset> -->
+<script>
+    // bom: 浏览器对象模型
+    // 核心对象：window，表示浏览器的一个实例；
+    // window对象作用：js访问浏览器窗口的一个接口；global对象；
+    // 所有在全局作用域中声明的变量、函数都是window对象的属性和方法；
+    // 全局变量不能通过delete删除，而直接在window对象上定义的属性可以；
+
+    // 窗口关系及框架
+    // 如果页面中包含框架，则每个框架都包含自己的window对象；
+    // top 对象
+
+    // 窗口位置：除了Firefox浏览器使用screenX和screenY表示窗口位置信息外，其他的浏览器使用screenLeft和screenTop表示
+    var leftPos = typeof top.screenLeft === 'number' ? top.screenLeft : top.screenX;
+    var topPos = typeof top.screenTop === 'number' ? top.screenTop : top.screenY;
+    console.log('leftPos=' + leftPos + ' , topPos=' + topPos);
+
+    // 以下两个方法已禁用
+    // window.moveTo(20, 0);
+    // window.moveBy(100, 0);
+
+    // 窗口大小
+    // innerWidth,innerHeight,outerWidth,outerHeight;
+    // 页面视口：document.documentElement.clientWidth/clientHeight
+    // 对于chrome也可以使用document.body.clientWidth/clientHeight
+
+    // 导航和打开窗口
+    // window.open()，可以导航到一个特定的url，也可以打开一个新的浏览器窗口
+    // window.open('https://www.baidu.com', 'topFrame', "height=400, width=400, top=10, left=10, resizable=yes") ==> <a href="https://www.baidu.com" target="topFrame">
+    // 调整窗口大小：window.resizeTo(500, 500); window.moveTo(100, 100);
+    // 关闭窗口：window.close(); 这个方法只适用于使用window.open()方法打开的窗口，使用top.close()可以在不经用户允许的情况下关闭自己
+
+    // 弹出窗口屏蔽程序
+    // window.open会返回一个指向新窗口的引用；返回的新的引用有个opener属性，指向打开它的窗口；
+    // 如果返回的值为null，则表示可能弹出窗口被浏览器屏蔽了；如果是浏览器插件或者其他程序阻止弹出窗口，则window.open会抛出一个错误
+    // var wroxWin = window.open('https://www.baidu.com', '_blank');
+    // if(wroxWin === null) {
+    //     alert('The popup was blocked!');
+    // }
+    // 完整的检测弹窗是否被屏蔽如下：
+    // var blocked =  false;
+    // try{
+    //     var wroxWin = window.open('https://www.baidu.com', '_blank');
+    //     if(wroxWin === null) {
+    //         blocked = true;
+    //     }
+    // } catch(e) {
+    //     blocked = true;
+    // }
+    // if(blocked) alert('The popup was blocked!'); 
+</script>
+</html>
