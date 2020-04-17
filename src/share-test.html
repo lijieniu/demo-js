@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var obj = {
+            prop1: 'a',
+            prop2: 'b',
+        }
+        var result = JSON.stringify(obj);
+        console.log(result);
+
+
+        var result1 = JSON.parse('{"prop1":"a","prop2":"b"}');
+        console.log(result1);
+
+
+
+
+        const data1 = {
+            prop1: 'a',
+            prop2: undefined,
+            prop3: Symbol('bbb'),
+            prop4: function() {
+                return true;
+            }
+        }
+        
+        console.log('data1: ', JSON.stringify(data1));
+
+        const data2 = ['a', undefined, Symbol('bbb'), function() { return true}];
+        console.log('data2: ', JSON.stringify(data2));
+
+        const data3 = {
+            prop1: 'a',
+            toJSON: function() {
+                // return /'b';
+                return  {
+                	prop: 'b'
+                }
+            }
+        }
+        console.log('data3: ', JSON.stringify(data3));
+
+        const data4 = {
+            prop1: 'a',
+            prop2: undefined,
+            prop3: Symbol('bbb'),
+            prop4: function() {
+                return true;
+            }
+        }
+        var replacer = function(key, value) {
+            if(typeof value == 'undefined') {
+                return 'undefined'
+            } else {
+                return value;
+            }
+        }
+        console.log('data4: ', JSON.stringify(data4, replacer));
+
+        const data5 = {
+            prop1: 'a',
+            prop2: undefined,
+            prop3: Symbol('bbb'),
+            prop4: function() {
+                return true;
+            },
+            prop5: 'c'
+        }
+        console.log('data5: ', JSON.stringify(data5, ['prop1']));
+
+        const data6 = {
+            prop1: 'a',
+            prop2: 'b',
+        }
+        console.log('data6: ', JSON.stringify(data6, null, 4));
+
+        // JSON.parse的reviver函数
+        console.log('data7', JSON.parse('{"p": 5}', function (k, v) {
+		    if(k === '') return v;     
+		    return v * 2;             
+		}));
+    </script>
+</body>
+</html>

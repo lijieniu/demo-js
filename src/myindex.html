@@ -7,7 +7,16 @@
   <title>手写系列</title>
 </head>
 <body>
-  <script src="./js/mycall.js"></script>
-  <script src="./js/myapply.js"></script>
+	<a href="" target="_blank">跳转</a>
+  <script type="text/javascript">
+  	window.onbeforeunload = function (e) {
+  		e = e || window.e;
+  		if(e) {
+  			e.returnValue="确定离开当前页面吗？";
+  		}
+  		return '确定离开当前页面吗？';
+  	};
+  		
+  </script>
 </body>
 </html>
