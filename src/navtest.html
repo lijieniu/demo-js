@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试APP nav显示隐藏</title>
+    <style>
+        html, body {
+            background: red;
+            height: 100vh;
+        }
+        button {
+            margin-top: 50px;
+        }
+        .snow {
+            position: relative;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            animation: snow 10s;
+        }
+        @keyframes snow {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(1000px);
+            } 
+        }
+    </style>
+</head>
+<body>
+    <div class="snow">❄️</div>
+    <button id="btn-hide">隐藏nav</button>
+    <button id="btn-show">显示nav</button> 
+</body>
+<script src="https://cdn.staticfile.org/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://m.qa10.inagora.org/resource/dist/wdSDK.js"></script>
+<script>
+    document.getElementById('btn-hide').addEventListener('click', function() {
+        console.log('hide');
+        wdSDK.navHide();
+    });
+    document.getElementById('btn-show').addEventListener('click', function() {
+        console.log('show');
+        wdSDK.navShow();
+    });
+    window.onload = async function() {
+        let version = await wdSDK.getAppVersion();
+        console.log('onload hide', version);
+        if(version) {
+            wdSDK.navHide();
+        }
+    }
+    setInterval(function() {
+        $('.snow').css({
+
+        });
+    }, 500);
+</script>
+</html>

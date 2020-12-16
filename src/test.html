@@ -79,10 +79,29 @@
 				height: 100%;
 				vertical-align: middle;
 			}
+            .header {
+                display: flex;
+                position: absolute;
+                width: 100%;
+            }
+            .header li {
+                list-style: none;
+            }
+            .header li:nth-child(2) {
+                margin-left: 20px;
+            }
+            .header li:nth-child(3) {
+                position: absolute;
+                right: 0;
+            }
 	  </style>
 </head>
 <body>
-	
+	<ul class="header">
+        <li>首页</li>
+        <li>热招职位</li>
+        <li>发布职位</li>
+    </ul>
 <div class="container">
 	<!-- <p>在页面的任何位置点击，将有一个小球飞入类为d-target圆形容器中，可以连续点击</p>
 	<div id="ttt" class="d-target"></div>

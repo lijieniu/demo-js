@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>proxy</title>
+</head>
+<body>
+    <script>
+        var proxy = new Proxy({}, {
+            get: function(target, propKey) {
+                return 32;
+            }
+        });
+        console.log(proxy.time);
+
+        // proxy get
+        var person = {
+            name: '张三'
+        };
+        var proxy = new Proxy(person, {
+            get: function(target, propKey) {
+                if(propKey in target) {
+                    return target[propKey];
+                } else {
+                    throw new ReferenceError('prop不存在');
+                }
+            }
+        });
+        // proxy.name;
+        
+    </script>
+</body>
+</html>

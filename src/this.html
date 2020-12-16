@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+    <style>
+        .parent {
+            width: 100px;
+            height: 20px;
+            background-color: red;
+            position: relative;
+        }
+        .child {
+            height: 30px;
+            top: 50px;
+            position: absolute;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <button id="go">跳转</button>
+    <div class="parent">
+        <div class="child">子元素子元素子元素子元素子元素子元素子元素子元素</div>
+    </div>
+    <script>
+        // class A {
+
+        // }
+        // window.和不加window
+        console.log(b());
+        let obj = {
+            b: function() {
+                console.log(this);
+            },
+            a: (function() {
+                console.log(this);
+                this.b();
+            })(),
+            
+        }
+        // function a() {
+        //     b();
+        // }
+        // function b() {
+        //     console.log();
+        // }
+        obj.a();
+        // 'use strict';
+        // console.log('this: ', this);
+        // var t = '1';
+        // var test;
+        // console.log(test);
+
+        // // ?
+        // // alert(t2);
+        // console.log(t2);
+        // var t2 = {};
+        // t2.a = 1;
+
+        // var open = function() {
+
+        // }
+        // let t3 = '3'; // const
+        // test = function () {
+            
+        //     console.log(t2);
+        // }
+        // test();
+        // t2 = '2';
+        // // console.log(t2);
+        // window.open('https://www.baidu.com');
+        
+
+    
+
+
+
+
+
+
+
+        // let currentState = history.state;
+        // console.log('currentState',history);
+        // // 全局环境
+        // console.log(this === window);
+        // // console.log(globalThis); // 获取全局对象
+        // 'use strict';
+        // console.log(this === window);
+        
+        // // 函数环境
+        // function f1() {
+        //     return this;
+        // }
+        // console.log(window.f1() === window);
+
+        // {
+        //     'use strict';
+        //     console.log('this: ', this);
+        // }
+        // // console.log(f2() === undefined);
+
+        // // 作为对象的方法
+        // var user = {
+        //     age: 31,
+        //     getAge: function() {
+        //         return this.age;
+        //     }
+        // }
+        // console.log(user.getAge());
+        // var user2 = {
+        //     age: 32
+        // }
+        // function getAge() {
+        //     return this.age;
+        // }
+        // user2.getAge = getAge;
+        // console.log(user2.getAge());
+
+        // // 原型链中的this
+        // var util = {
+        //     sum: function() {
+        //         return this.a + this.b;
+        //     }
+        // };
+        // var _util = Object.create(util);
+        // _util.a = 1;
+        // _util.b = 2;
+        // console.log(_util.sum());
+
+        // // 构造函数中的this
+        // function userConstructor() {
+        //     this.age = 33;
+        // }
+        // var user3 = new userConstructor();
+        // console.log(user3.age);
+        // function userConstructor2() {
+        //     this.age = 34;
+        //     return {
+        //         age: 35
+        //     }
+        // }
+        // var user4 = new userConstructor2();
+        // console.log(user4.age);
+
+        // // 箭头函数中的this
+        // var user4 = {
+        //     name: 'niu',
+        //     age: 30,
+        //     getName() {
+        //         console.log(this.name);
+        //     },
+        //     getAge: () => {
+        //         console.log(this.age);
+        //     }
+        // }
+        // user4.getName();
+        // user4.getAge();
+    </script>
+</body>
+</html>
