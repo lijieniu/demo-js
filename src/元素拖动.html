@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+      .draggable {
+        padding: 10px;
+        background-color: red;
+        color: #ffffff;
+        display: inline-block;
+      }
+      .undraggable {
+        padding: 10px;
+        background-color: green;
+        color: #ffffff;
+        display: inline-block;
+      }
+  </style>
+</head>
+<body>
+    <div class="draggable" draggable="true">拖动我</div>
+    <div class="undraggable">拖动我</div>
+    <script type="text/javascript">
+       let dragEl = document.querySelector('.draggable');
+       console.log(dragEl); 
+    </script>
+</body>
+</html>
