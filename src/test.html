@@ -118,12 +118,25 @@
 		</div>
 	</div>
 </div>
+<p style="padding-top: 100px;">
+    <button style="height: 34px;">test</button>
+    <button style="height: 40px;">test</button>
+    <button style="height: 20px;">test</button>
+    <button style="height: 34px;">test</button>
+</p>
 <!-- <script src="https://cdn.staticfile.org/zepto/1.0rc1/zepto.min.js"></script>
 <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 <script src="fly.min.js"></script> -->
 <script src="js/const.js"></script>
 
 <script type="text/javascript">
+
+    let str = 'xlh5://?%7B%22cmd%22:%22closeWindow%22,%20%22url%22:%22http://www.datanghuyu.cn/pay/upacp_middleware.html?params=%7B%22id%22:%22ch_101210302509061120000005%22,%22object%22:%22charge%22,%22created%22:1614664113,%22livemode%22:true,%22paid%22:false,%22refunded%22:false,%22reversed%22:false,%22app%22:%22app_1uHuX5WbbTK4He1S%22,%22channel%22:%22upacp_wap%22,%22order_no%22:%2223954753%22,%22client_ip%22:%2261.135.18.98%22,%22amount%22:12900,%22amount_settle%22:12900,%22currency%22:%22cny%22,%22subject%22:%22258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22body%22:%22%E7%94%A8%E6%88%B7ID10907538%E8%B4%AD%E4%B9%B0258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22extra%22:%7B%22result_url%22:%22http://www.datanghuyu.cn/pay/success.html?env=majiang%22%7D,%22time_paid%22:null,%22time_expire%22:1614667713,%22time_settle%22:null,%22transaction_no%22:null,%22refunds%22:%7B%22object%22:%22list%22,%22url%22:%22/v1/charges/ch_101210302509061120000005/refunds%22,%22has_more%22:false,%22data%22:%5B%5D%7D,%22amount_refunded%22:0,%22failure_code%22:null,%22failure_msg%22:null,%22metadata%22:%7B%7D,%22credential%22:%7B%22object%22:%22credential%22,%22upacp_wap%22:%7B%22accessType%22:%220%22,%22backUrl%22:%22https://notify.pingxx.com/notify/charges/ch_101210302509061120000005%22,%22bizType%22:%22000000%22,%22certId%22:%2274147250231%22,%22channelType%22:%2208%22,%22currencyCode%22:%22156%22,%22customerIp%22:%2261.135.18.98%22,%22encoding%22:%22UTF-8%22,%22frontUrl%22:%22http://www.datanghuyu.cn/pay/success.html?env=majiang%22,%22merId%22:%22802110048161254%22,%22orderDesc%22:%22258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22orderId%22:%2223954753%22,%22payTimeout%22:%2220210302144833%22,%22reqReserved%22:%22ch_101210302509061120000005%22,%22signMethod%22:%2201%22,%22txnAmt%22:%2212900%22,%22txnSubType%22:%2201%22,%22txnTime%22:%2220210302134833%22,%22txnType%22:%2201%22,%22version%22:%225.0.0%22,%22signature%22:%22TCjO4vkGvznHc7zxhX5uUafmZq0vIn7BYqIWzSzISqY/mB9eTsqzbNWl/+g5Yj4Y0SJvTkmzVoBCtU/n1FOBaEUMkVxr8Gu2l6pBeepMMfy3uRLUXxnzH4isIA07k/9eoIozrYcHHpE6/0EYJqJBP1+H6XCoLRLLi7SDFMU2kSGejRbskBlJb9nshOH/F9clLm8auLvbJtfCk7s2mDX+vbJjHenIQeOxnMrSP64MROz93AA/v9HFp3iBV94NJJAKdVvKrUHPePgKtA30jitwxqG98e/w0KJ+HxNG0Yv+dyaYkLCdAQ5LvLlRY0j04C17hzOj9d0SW11krXxsYDHpQw==%22%7D%7D,%22description%22:null%7D%22%7D';
+    let content = decodeURIComponent(str);
+    let reg = /[\S+\s+]"url":"(\S+)"/g;
+    console.log(reg.exec(content)[1]);
+
+
     // 一个简单的测试：关于值传递和引用传递
     function changeAgeAndReference(person) {
         person.age = 25;
@@ -602,7 +615,7 @@
 	// 			}, 1);
 	// 		}, 30);
 	// 	});
-	// }
+    // }
 </script>
 </body>
 </html>
