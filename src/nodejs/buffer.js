@@ -12,3 +12,9 @@ const buffer3 = Buffer.concat([buffer, buffer2]);
 console.log(buffer3.toString());
 
 console.log(buffer3.length);
+
+
+const b1 = Buffer.alloc(10, 3);
+
+const b2 = Buffer.from('hello world', 'utf8');
+console.log(b2);
