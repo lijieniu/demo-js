@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+	<meta name="format-detection" content="telephone=no, address=no">
+	
+    <title>file</title>
+    <style>
+        input {
+            box-sizing: border-box;
+            margin: 0;
+            font-variant: tabular-nums;
+            list-style: none;
+            font-feature-settings: "tnum";
+            position: relative;
+            display: inline-block;
+            width: 300px;
+            height: 32px;
+            padding: 4px 11px;
+            color: rgba(0,0,0,.65);
+            font-size: 14px;
+            line-height: 1.5;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            transition: all .3s;
+            outline: none;
+        }
+        button {
+            line-height: 1.499;
+            position: relative;
+            display: inline-block;
+            font-weight: 400;
+            white-space: nowrap;
+            text-align: center;
+            background-image: none;
+            box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+            cursor: pointer;
+            transition: all .3s cubic-bezier(.645,.045,.355,1);
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+            height: 32px;
+            padding: 0 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            color: rgba(0,0,0,.65);
+            background-color: #fff;
+            border: 1px solid #d9d9d9;
+            color: #fff;
+            background-color: #1890ff;
+            border-color: #1890ff;
+            text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+            box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <input id="data-input">
+    <button onclick="sendData()">发送数据</button>
+</div>
+<!-- <script src="./"></script> -->
+<!-- <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script> -->
+<script type="text/javascript">
+    let handleCallback = function(res) {
+        console.log(res);
+    }
+    function doJSONPRequestClickHandler() {
+        let script = document.createElement('script');
+        script.src = 'http://123.57.68.108:8090/jsonp?callback=handleCallback';
+        document.body.appendChild(script);
+    }
+
+    function doCORSRequestClickHandler() {
+        let xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://123.57.68.108:8090/cors', true);
+        xhr.setRequestHeader('custom', 'niu');
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        }
+    }
+
+    function doClickHandler() {
+        let xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://123.57.68.108:8090/test', true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        }
+    }
+
+    function sendData() {
+        let xhr = new XMLHttpRequest();
+        let data = document.querySelector('#data-input').value;
+        xhr.open('post', 'http://123.57.68.108:8090/saveData', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('custom', 'niu');
+        xhr.send('name=' + data);
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+                alert(xhr.responseText);
+            }
+        }
+    }
+
+    // var socket = io('http://123.57.68.108:8090');
+
+    // // 连接成功处理
+    // socket.on('connect', function() {
+    //     // 监听服务端消息
+    //     socket.on('message', function(msg) {
+    //         console.log('data from server: ---> ' + msg); 
+    //     });
+
+    //     // 监听服务端关闭
+    //     socket.on('disconnect', function() { 
+    //         console.log('Server socket has closed.'); 
+    //     });
+    // });
+
+    // document.getElementsByTagName('input')[0].onblur = function() {
+    //     socket.send(this.value);
+    // };
+    
+</script>
+</body>
+</html>

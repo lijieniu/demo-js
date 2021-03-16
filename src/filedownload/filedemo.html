@@ -12,8 +12,9 @@
     <button id="download" onclick="doClickHandler()">点我会跨域哦</button>
     <button id="download" onclick="doJSONPRequestClickHandler()">jsonp跨域</button>
     <button id="download" onclick="doCORSRequestClickHandler()">cors跨域</button>
+    <button id="download" onclick="doNodeProxyRequestClickHandler()">nodejs中间件代理</button>
 </div>
-<script src="./"></script>
+<!-- <script src="./"></script> -->
 <!-- <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script> -->
 <script type="text/javascript">
     let handleCallback = function(res) {
@@ -28,6 +29,17 @@
     function doCORSRequestClickHandler() {
         let xhr = new XMLHttpRequest();
         xhr.open('get', 'http://123.57.68.108:8090/cors', true);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        }
+    }
+
+    function doNodeProxyRequestClickHandler() {
+        let xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://localhost:8081/nodeproxy', true);
         xhr.send();
         xhr.onreadystatechange = function() {
             if(xhr.readyState === 4 && xhr.status === 200) {
