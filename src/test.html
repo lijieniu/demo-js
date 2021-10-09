@@ -94,22 +94,81 @@
                 position: absolute;
                 right: 0;
             }
+			.circle_process{
+				position: relative;
+				width: 199px;
+				height : 200px;
+			}
+			.circle_process .wrapper{
+				width: 100px;
+				height: 200px;
+				position: absolute;
+				top:0;
+				overflow: hidden;
+			}
+			.circle_process .right{
+				right:0;
+			}
+			.circle_process .left{
+				left:0;
+			}
+			.circle_process .circle{
+				width: 160px;
+				height: 160px;
+				border:20px solid transparent;
+				border-radius: 50%;
+				position: absolute;
+				top:0;
+				transform : rotate(-135deg);
+			}
+			.circle_process .rightcircle{
+				border-top:20px solid green;
+				border-right:20px solid green;
+				right:0;
+				-webkit-animation: circle_right 5s linear infinite;
+			}
+			.circle_process .leftcircle{
+				border-bottom:20px solid green;
+				border-left:20px solid green;
+				left:0;
+				-webkit-animation: circle_left 5s linear infinite;
+			}
+			@-webkit-keyframes circle_right{
+				0%{
+					-webkit-transform: rotate(-135deg);
+				}
+				50%,100%{
+					-webkit-transform: rotate(45deg);
+				}
+			}
+			@-webkit-keyframes circle_left{
+				0%,50%{
+					-webkit-transform: rotate(-135deg);
+				}
+				100%{
+					-webkit-transform: rotate(45deg);
+				}
+			}
+			.scroll-box {
+				width: 50px;
+				height: 100px;
+				background-color: red;
+			}
 	  </style>
 </head>
 <body>
-	<ul class="header">
-        <li>首页</li>
-        <li>热招职位</li>
-        <li>发布职位</li>
-    </ul>
-<div class="container">
-	<!-- <p>在页面的任何位置点击，将有一个小球飞入类为d-target圆形容器中，可以连续点击</p>
-	<div id="ttt" class="d-target"></div>
-	<div class="outer">
-		<div class="inner">
-
+	<div class="circle_process">
+		<div class="wrapper left">
+			<div class="circle leftcircle" id="leftcircle"></div>
 		</div>
-	</div> -->
+		<div class="wrapper right">
+		  <div class="circle rightcircle"></div>
+		</div>
+	</div>
+	<div class="scroll-box">
+		
+	</div>
+<!-- <div class="container"> 
 	<div class="parabola-animation">
 		<div class="parabola-box-hor">
 			<div class="parabola-box-ver">
@@ -123,499 +182,592 @@
     <button style="height: 40px;">test</button>
     <button style="height: 20px;">test</button>
     <button style="height: 34px;">test</button>
-</p>
+</p> -->
+<a href="file:///Users/fangniu/Documents/niu/demo-js/src/test.html" target="_blank">点我</a>
 <!-- <script src="https://cdn.staticfile.org/zepto/1.0rc1/zepto.min.js"></script>
-<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 <script src="fly.min.js"></script> -->
-<script src="js/const.js"></script>
+<!-- <script src="js/const.js"></script> -->
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 
-    let str = 'xlh5://?%7B%22cmd%22:%22closeWindow%22,%20%22url%22:%22http://www.datanghuyu.cn/pay/upacp_middleware.html?params=%7B%22id%22:%22ch_101210302509061120000005%22,%22object%22:%22charge%22,%22created%22:1614664113,%22livemode%22:true,%22paid%22:false,%22refunded%22:false,%22reversed%22:false,%22app%22:%22app_1uHuX5WbbTK4He1S%22,%22channel%22:%22upacp_wap%22,%22order_no%22:%2223954753%22,%22client_ip%22:%2261.135.18.98%22,%22amount%22:12900,%22amount_settle%22:12900,%22currency%22:%22cny%22,%22subject%22:%22258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22body%22:%22%E7%94%A8%E6%88%B7ID10907538%E8%B4%AD%E4%B9%B0258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22extra%22:%7B%22result_url%22:%22http://www.datanghuyu.cn/pay/success.html?env=majiang%22%7D,%22time_paid%22:null,%22time_expire%22:1614667713,%22time_settle%22:null,%22transaction_no%22:null,%22refunds%22:%7B%22object%22:%22list%22,%22url%22:%22/v1/charges/ch_101210302509061120000005/refunds%22,%22has_more%22:false,%22data%22:%5B%5D%7D,%22amount_refunded%22:0,%22failure_code%22:null,%22failure_msg%22:null,%22metadata%22:%7B%7D,%22credential%22:%7B%22object%22:%22credential%22,%22upacp_wap%22:%7B%22accessType%22:%220%22,%22backUrl%22:%22https://notify.pingxx.com/notify/charges/ch_101210302509061120000005%22,%22bizType%22:%22000000%22,%22certId%22:%2274147250231%22,%22channelType%22:%2208%22,%22currencyCode%22:%22156%22,%22customerIp%22:%2261.135.18.98%22,%22encoding%22:%22UTF-8%22,%22frontUrl%22:%22http://www.datanghuyu.cn/pay/success.html?env=majiang%22,%22merId%22:%22802110048161254%22,%22orderDesc%22:%22258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22orderId%22:%2223954753%22,%22payTimeout%22:%2220210302144833%22,%22reqReserved%22:%22ch_101210302509061120000005%22,%22signMethod%22:%2201%22,%22txnAmt%22:%2212900%22,%22txnSubType%22:%2201%22,%22txnTime%22:%2220210302134833%22,%22txnType%22:%2201%22,%22version%22:%225.0.0%22,%22signature%22:%22TCjO4vkGvznHc7zxhX5uUafmZq0vIn7BYqIWzSzISqY/mB9eTsqzbNWl/+g5Yj4Y0SJvTkmzVoBCtU/n1FOBaEUMkVxr8Gu2l6pBeepMMfy3uRLUXxnzH4isIA07k/9eoIozrYcHHpE6/0EYJqJBP1+H6XCoLRLLi7SDFMU2kSGejRbskBlJb9nshOH/F9clLm8auLvbJtfCk7s2mDX+vbJjHenIQeOxnMrSP64MROz93AA/v9HFp3iBV94NJJAKdVvKrUHPePgKtA30jitwxqG98e/w0KJ+HxNG0Yv+dyaYkLCdAQ5LvLlRY0j04C17hzOj9d0SW11krXxsYDHpQw==%22%7D%7D,%22description%22:null%7D%22%7D';
-    let content = decodeURIComponent(str);
-    let reg = /[\S+\s+]"url":"(\S+)"/g;
-    console.log(reg.exec(content)[1]);
+	document.querySelector('.scroll-box').scrollTo({
+		top: 500
+	});
+	// 逻辑赋值运算符
+	// ||=：左边为false时执行赋值操作
+	let a = '';
+	a ||= 3;
+	console.log(a);
 
+	let b = 2;
+	b ||= 3;
+	console.log(b);
 
-    // 一个简单的测试：关于值传递和引用传递
-    function changeAgeAndReference(person) {
-        person.age = 25;
-        person = { 
-            name: 'John',
-            age: 50
-        };
-        return person;
-    }
-    var personObj1 = {
-        name: 'Alex',
-        age: 30
-    };
-    var personObj2 = changeAgeAndReference(personObj1);
-    console.log(personObj1);
-    console.log(personObj2);
+	// &&=：左边为true时执行赋值操作
+	let c = 2;
+	c &&= 1;
+	console.log(c);
 
-    // 单例设计模式：
+	// ??=：左边为null或者undefined的时候执行赋值操作
+	let d = undefined;
+	d ??= 2;
+	console.log(d);
 
+	// function fetch2() {
+	// 	return new Promise((resolve, reject) => {
+	// 		setTimeout(() => {
+	// 			// resolve(2);
+	// 			reject('error');
+	// 		}, 2000);
+	// 	});
+	// }
 
+	// function fetch3() {
+	// 	return new Promise((resolve, reject) => {
+	// 		setTimeout(() => {
+	// 			resolve(3);
+	// 			// reject('error');
+	// 		}, 3000);
+	// 	});
+	// }
 
-    // 高阶函数
-    // function add(x, y, f) {
-    //     return f(x) + f(y);
-    // }
-    // var result = add(-5, 6, Math.abs);
-    // console.log(result);
-
-    // 闭包
-    // 1.要了解闭包先要了解一下js中的作用域：全局和局部作用域；js中没有块级作用域：比如if语句中定义的变量
-    // 无块级作用域
-    if(true) {
-        var a = 111;
-    }
-    console.log(a);
-
-    function test() {
-        var b = 222;
-    }
-    test();
-    // console.log(b); // 报错
-
-    // 如果在函数中定义一个变量没有使用var关键字，则该变量是一个全局变量
-    function test2() {
-        c = 333;
-    }
-    test2();
-    console.log(c);
-
-    // 那么我们怎样才能在全局中访问局部变量呢？
-    function test3() {
-        var a3 = 444;
-        function t3() {
-            return a3;
-        }
-        return t3;
-    }
-    console.log(test3()());
-    // 什么是闭包？其实上面的t3就是一个闭包
-    // 个人理解：闭包其实就是在函数内部嵌套的另一个函数，它的作用就是可以让全局作用域访问局部作用域中的变量
-    // 使用闭包的作用：读取函数内部的变量；让这些变量始终保持在内存中；
-    function f1() {
-        var n = 999;
-        nAdd = function() {
-            n +=1;
-        }
-        function f2() {
-            console.log(n);
-        }
-        return f2
-    }
-    var result = f1();
-    result(); // 999
-    nAdd(); // n = 1000
-    result(); // 1000
-    
-
-    // javascript运行机制
-    // 1.js运行是按照语句出现的顺序执行的
-    var aa = 1;
-    console.log(aa);
-    var bb = 2;
-    console.log(bb);
-
-    setTimeout(function() {
-        console.log('定时器开始啦');
-    });
-
-    new Promise(function(resolve) {
-        console.log('创建一个新的Promise');
-        resolve();
-    }).then(function() {
-        console.log('执行then');
-    });
-    console.log('代码执行结束');
-    // 2.js是单线程语言，js中的任务：同步任务和异步任务
-    // 同步任务会直接在主线程中执行，异步任务会进入一个event table，然后注册回调函数，当主线程上的任务执行完之后，主线程会调用事件队列中的
-    // 回调函数进行执行
-    // js引擎中存在monitoring process进程，会持续不断的检查主线程是否为空
-    // var data = [];
-    // $.ajax({
-    //     url: 'www.baidu.com',
-    //     data: data,
-    //     success: function() {
-    //         // 回调函数代码
-    //     }
-    // });
-
-    // 3.setTimeout: 准确的说应该是x秒之后将task()放入事件队列中而不是立即执行
-    setTimeout(function() {
-        // task()
-    }, 3000);
-    // sleep(10000000); // 主线程sleep完之后再执行task
-    // 任务：宏任务和微任务
-    setTimeout(function() {
-        console.log("setTimeout");
-    });
-    new Promise(function(resolve) {
-        console.log('promise');
-        resolve();
-    }).then(function() {
-        console.log('then');
-    });
-    console.log('console');
-
-    // 终极例子
-    console.log('1');
-
-    setTimeout(function() {
-        console.log('2');
-        // process.nextTick(function() {
-        //     console.log('3');
-        // })
-        new Promise(function(resolve) {
-            console.log('4');
-            resolve();
-        }).then(function() {
-            console.log('5')
-        })
-    })
-    // process.nextTick(function() {
-    //     console.log('6');
-    // })
-    new Promise(function(resolve) {
-        console.log('7');
-        resolve();
-    }).then(function() {
-        console.log('8')
-    })
-
-    setTimeout(function() {
-        console.log('9');
-        // process.nextTick(function() {
-        //     console.log('10');
-        // })
-        new Promise(function(resolve) {
-            console.log('11');
-            resolve();
-        }).then(function() {
-            console.log('12')
-        })
-    })
-    // function func1() {
-    //     var a = 999;
-    //     function func2() {
-    //         console.log(a);
-    //     }
-    //     return func2;
-    // }
-
-    // var func = func1();
-    // func();
-
-    // var name = "The Window";
-    // var object = {
-    //     name: "My Object",
-    //     getNameFunc: function() {
-    //         return function() {
-    //             return this.name;
-    //         }
-    //     }
-    // }
-    // console.log(object.getNameFunc()());
-    // // console.log(object.getNameFunc().call(object));
-
-    // var name2 = "The Window";
-    // var object2 = {
-    //     name: "My Object",
-    //     getNameFunc: function() {
-    //         var that = this;
-    //         return function() {
-    //             return that.name;
-    //         }
-    //     }
-    // };
-    // console.log(object2.getNameFunc()());
-
-
-	// var flyer = jQuery('<img class="flyer-img" src="http://ossimg.wandougongzhu.cn/6deeeac606f5283ac44807046676cad4.png@360w_4000h_1l.webp">'); //抛物体对象   
-	// 	flyer.fly({   
-    //         start: {   
-    //             left: event.pageX,//抛物体起点横坐标   
-    //             top: jQuery(window).height() - 30 //抛物体起点纵坐标   
-    //         },   
-    //         end: {   
-    //             left: jQuery('.fixed-operate-bar-cart-box').offset().left + 25,//抛物体终点横坐标   
-    //             top: jQuery(window).height() - 30, //抛物体终点纵坐标   
-    //         },   
-    //         onEnd: function() {   
-    //             $('.flyer-img').hide()
-	// 		},
-	// 		speed: 0.8   
-    //     });
-
-	// $('body').on('click', '.parabola-test.begin', function() {
-	// 	addCar({
-	// 		begin: $('.parabola-test.begin'),
-	// 		end: $('.parabola-test.end'),
-	// 		img: './img/logo.jpg',
-	// 		callback: function() {
-	// 			console.log('动画完成');
-	// 		}
-	// 	})
+	// Promise.any([fetch1(), fetch2(), fetch3()]).then((res) => {
+	// 	console.log(res);
+	// }).catch(e => {
+	// 	console.log(e);
 	// });
 
-	// var addCar = function(opt){
-    //     return (function(){
-    //         var parabola = function(opt){
-    //             this.init(opt);
-    //         };
-    //         parabola.prototype = {
-    //             init: function(opt){
-    //                 var flyO = this.calculatedValue(opt),
-    //                     flyDom = this.creatHtml(flyO.site,flyO.img),
-    //                     flyRule = this.creatRule(flyO.coord);
 
-    //                 document.getElementsByTagName('head')[0].appendChild(flyRule);
-    //                 document.body.appendChild(flyDom);
-    //                 $('.parabola-animation').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend','.parabola-box-ver',function(){
-    //                     var _pfly = $('.parabola-animation');
-    //                     if(_pfly.length) _pfly.remove();
-    //                     flyO.callback();
-    //                 });
-    //             },
-	// 			creatHtml : function(site,img){
-    //                 var imgHtml = img == '' ? '' : '![]('+img+')';
+	// const vm = new Map();
+	// const ref = {};
+	// const value = '123';
+	// vm.set(ref, value);
+	// const refResult = vm.get(ref);
+	// console.log(refResult);
 
-    //                 var html = '<div class="parabola-box-hor">\
-    //                                 <div class="parabola-box-ver">\
-    //                                     '+imgHtml+'\
-    //                                 </div>\
-    //                             </div>';
+	// const vm = new WeakMap();
+	// const ref = {};
+	// const value = '123';
+	// vm.set(ref, value);
+	// const refResult = vm.get(ref);
+	// console.log(refResult);
 
-    //                 var parentBox = document.createElement('div');
-    //                 parentBox.innerHTML = html;
-    //                 parentBox.setAttribute('class','parabola-animation');
-
-    //                 var frag = document.createDocumentFragment();
-    //                 frag.appendChild(parentBox);
-
-    //                 var verBox = frag.querySelector('.parabola-box-ver'),
-    //                     horBpx = frag.querySelector('.parabola-box-hor');
-    //                 verBox.style.left = site.left + 'px';
-    //                 verBox.style.top = site.top + 'px';
-
-    //                 if(site.cubic) {
-    //                     verBox.setAttribute("class",'parabola-box-ver top');
-    //                     horBpx.setAttribute("class",'parabola-box-hor top');
-    //                 }
-    //                 return frag;
-    //             },
-    //             creatRule:function(coord){
-    //                 var cssAnimation = document.createElement('style');
-    //                 cssAnimation.type="text/css";
-    //                 var rules = "\
-    //                         @-webkit-keyframes parabola-hor-animation{\
-    //                             0%{\
-    //                                 -webkit-transform: translate(0px, 0px);\
-    //                                         transform: translate(0px, 0px);\
-    //                             }\
-    //                             10%{\
-    //                                 -webkit-transform: translate(0px, 0px);\
-    //                                         transform: translate(0px, 0px);\
-    //                             }\
-    //                             100%{\
-    //                                 -webkit-transform: translate("+coord.x+"px, 0px);\
-    //                                         transform: translate("+coord.x+"px, 0px);\
-    //                             }\
-    //                         }\
-    //                         @keyframes parabola-hor-animation{\
-    //                             0%{\
-    //                                 -webkit-transform: translate(0px, 0px);\
-    //                                         transform: translate(0px, 0px);\
-    //                             }\
-    //                             10%{\
-    //                                 -webkit-transform: translate(0px, 0px);\
-    //                                         transform: translate(0px, 0px);\
-    //                             }\
-    //                             100%{\
-    //                                 -webkit-transform: translate("+coord.x+"px, 0px);\
-    //                                         transform: translate("+coord.x+"px, 0px);\
-    //                             }\
-    //                         }\
-    //                         @-webkit-keyframes parabola-ver-animation{\
-    //                             0%{\
-    //                                 -webkit-transform: translate(0px, 0px);\
-    //                                         transform: translate(0px, 0px);\
-    //                             }\
-    //                             10%{\
-    //                                 -webkit-transform: translate(0px, "+coord.os+"px);\
-    //                                         transform: translate(0px, "+coord.os+"px);\
-    //                             }\
-    //                             100%{\
-    //                                 -webkit-transform: translate(0px,"+coord.y+"px);\
-    //                                         transform: translate(0px,"+coord.y+"px);\
-    //                             }\
-    //                         }\
-    //                         @keyframes parabola-ver-animation{\
-    //                             0%{\
-    //                                 -webkit-transform: translate(0px, 0px);\
-    //                                         transform: translate(0px, 0px);\
-    //                             }\
-    //                             10%{\
-    //                                 -webkit-transform: translate(0px, "+coord.os+"px);\
-    //                                         transform: translate(0px, "+coord.os+"px);\
-    //                             }\
-    //                             100%{\
-    //                                 -webkit-transform: translate(0px,"+coord.y+"px);\
-    //                                         transform: translate(0px,"+coord.y+"px);\
-    //                             }\
-    //                         }\
-    //                     ";
-    //                 cssAnimation.innerHTML = rules;
-    //                 return cssAnimation;
-	// 			},
-	// 			calculatedValue:function(opt){
-    //                 var fly = {
-    //                     begin:'',
-    //                     end: '',
-    //                     img : '',
-    //                     callback:function(){
-    //                         console.log('动画完成');
-    //                     }
-    //                 },
-    //                 vData = {
-    //                     site:{
-    //                         left: 0,
-    //                         top: 0 ,
-    //                         cubic: false
-    //                     },
-    //                     img: '',
-    //                     coord:{
-    //                         x: 0 ,
-    //                         y: 0 ,
-    //                         os: 0
-    //                     },
-    //                     callback: function(){}
-    //                 },
-    //                 _this = this ;
-
-    //                 if( typeof opt == 'object'){
-    //                     fly = $.extend(true, fly, opt);
-    //                 }
-
-    //                 //如果没有这两个元素中的其中一个则终止
-    //                 if(!fly.begin.length || !fly.end.length) return vData;
-    //                 /**
-    //                  * beginCrood 获取开始元素的位置
-    //                  * endCrood   获取结束元素的位置
-    //                  */
-    //                 var beginCrood = fly.begin[0].getBoundingClientRect(),
-    //                     endCrood = fly.end[0].getBoundingClientRect();
-
-    //                 /*!
-    //                  *  购物车动画出现的位置
-    //                  *  left: 开始元素的left+width/2
-    //                  *  top: 开始元素的top
-    //                  *  购物车动画结束的位置
-    //                  *  x: 结束元素的left+width/2 再减去购物车动画出现的位置的left
-    //                  *  y: 结束元素的top+height/2 再减去购物车动画出现的位置的top
-    //                  */
-    //                 /**
-    //                  * 全部减去 18是因为购物车宽度和高度都是35px;一半难得算(-_-),就填18
-    //                  */
-    //                 vData.site.left = beginCrood.left + parseInt(beginCrood.width/2,10) -18;
-    //                 vData.site.top = beginCrood.top -18;
-    //                 vData.coord.x = endCrood.left + parseInt(endCrood.width/2,10) - vData.site.left -18;
-    //                 vData.coord.y = endCrood.top + parseInt(endCrood.height/2,10) - vData.site.top -18;
-    //                 vData.coord.os = -50;
-    //                 vData.img = fly.img;
-    //                 vData.callback = fly.callback;
-    //                 if(beginCrood.top > endCrood.top) vData.site.cubic = true;
-                    
-    //                 return vData;
-    //             }
-    //         }
-    //         return new parabola(opt);
-    //     })();
-    // }
-
-// $('<div class="test"></div>').fly({
-//       start: {top: 542, left: 622},
-//       end: {top: 142, left: 322, width: 20, height: 20},
-//       onEnd: function(){
-//         alert('End');
-//         this.destory();
-//       }
-//     });
-    // window.onload = function() {
-	// 	function addElements(CLASSNAME_OUTER, CLASSNAME_INNER) {
-	// 		var outerWrapper = document.createElement('div');
-	// 		var outer = null;
-	// 		var inner = null;
-	// 		for (var i = 0; i < 5; i++) {
-	// 			outer = document.createElement('div');
-	// 			outer.classList.add(CLASSNAME_OUTER);
-	// 			outer.classList.add('point-pre');
-	// 			inner = document.createElement('div');
-	// 			inner.setAttribute('class', CLASSNAME_INNER);
-	// 			outer.appendChild(inner);
-	// 			outerWrapper.appendChild(outer);
-	// 			inner = null;
-	// 			outer = null;
-	// 		}
-	// 		document.body.appendChild(outerWrapper)
-	// 		return outerWrapper
+	// start();
+	// async function start() {
+	// 	for (let i = 0; i < 10; i++) {
+	// 		await test(i);
 	// 	}
+	// }
 
-	// 	function getEndCoordinate(ele) {
-	// 		var left = ele.offsetLeft;
-	// 		var top = ele.offsetTop;
-	// 		return [left, top]
-	// 	}
-
-	// 	function getElementMyShowHide(parentElement, CLASSNAME_SHOW_NONE) {
-	// 		var result = null;
-	// 		var childElements = parentElement.getElementsByClassName(CLASSNAME_SHOW_NONE);
-	// 		result = childElements[0];
-	// 		return result;
-	// 	}
-
-	// 	var CLASSNAME_OUTER = 'outer';
-	// 	var CLASSNAME_INNER = 'inner';
-
-	// 	// 增加小球元素
-	// 	var outerWrapper = addElements(CLASSNAME_OUTER,CLASSNAME_INNER);
-	// 	var endLeft = getEndCoordinate(document.getElementById('ttt'))[0];
-	// 	var endTop  = getEndCoordinate(document.getElementById('ttt'))[1];
-
-	// 	// 真实中的购物车实现是这里的click事件绑在添加购物车的按钮或者类似按钮的dom上
-	// 	window.addEventListener('click', function (event) {
-	// 		// 当双击的时候,小球会从(0,0)的位置落入目标区,以下为当双击的时候,只会第一次点击的setTimeout会被清除
-	// 		// 所以只会显示一次从点击地点到目标区的运动
-	// 		// 但是依然会执行第一次的逻辑,因为内部两个setTimeout没有被清除
-	// 		clearTimeout(timer);
-	// 		var timer = setTimeout(function () {
-	// 			var left = event.offsetX;
-	// 			var top  = event.offsetY;
-	// 			// 定位球元素
-	// 			var childElement = getElementMyShowHide(outerWrapper,'point-pre');
-	// 			childElement.style.left = left + 'px';
-	// 			childElement.style.top = top + 'px';
-	// 			// 计算坐标差
-	// 			var leftDifference = -(left - endLeft);
-	// 			var topDifference = -(top - endTop);
-	// 			// 开始
-	// 			childElement.classList.remove('point-pre');
-	// 			setTimeout(function () {
-	// 				childElement.getElementsByClassName('inner')[0].style.transform = `translateY(${topDifference}px)`;
-	// 				childElement.style.transform = `translateX(${leftDifference}px)`;
-	// 				setTimeout(function () {
-	// 					childElement.getElementsByClassName('inner')[0].setAttribute('style', '');
-	// 					childElement.setAttribute('style', '');
-	// 					childElement.classList.add('point-pre');
-	// 				}, 350);
-	// 			}, 1);
-	// 		}, 30);
+	// function test(i) {
+	// 	return new Promise(resolve => {
+	// 		setTimeout(() => {
+	// 			console.log(i);
+	// 			resolve();
+	// 		}, 2000);
 	// 	});
-    // }
+	// }
+    // let str = 'aabbccda';
+    // const lastIndex = str.lastIndexOf('c');
+    // let strArr = str.split('');
+    // strArr.splice(lastIndex, 1, '*');
+    // str = strArr.join('');
+    // console.log(str);
+
+    // let str2 = 'aabbccda';
+    // str2 = str2.replace(/(.*)c/, '$1*');
+    // console.log(str2);
+	// let i = 0;
+	// setInterval(() => {
+	// 	console.log(++i);
+	// }, 1000);
+	// alert(i);
+//     let str = 'xlh5://?%7B%22cmd%22:%22closeWindow%22,%20%22url%22:%22http://www.datanghuyu.cn/pay/upacp_middleware.html?params=%7B%22id%22:%22ch_101210302509061120000005%22,%22object%22:%22charge%22,%22created%22:1614664113,%22livemode%22:true,%22paid%22:false,%22refunded%22:false,%22reversed%22:false,%22app%22:%22app_1uHuX5WbbTK4He1S%22,%22channel%22:%22upacp_wap%22,%22order_no%22:%2223954753%22,%22client_ip%22:%2261.135.18.98%22,%22amount%22:12900,%22amount_settle%22:12900,%22currency%22:%22cny%22,%22subject%22:%22258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22body%22:%22%E7%94%A8%E6%88%B7ID10907538%E8%B4%AD%E4%B9%B0258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22extra%22:%7B%22result_url%22:%22http://www.datanghuyu.cn/pay/success.html?env=majiang%22%7D,%22time_paid%22:null,%22time_expire%22:1614667713,%22time_settle%22:null,%22transaction_no%22:null,%22refunds%22:%7B%22object%22:%22list%22,%22url%22:%22/v1/charges/ch_101210302509061120000005/refunds%22,%22has_more%22:false,%22data%22:%5B%5D%7D,%22amount_refunded%22:0,%22failure_code%22:null,%22failure_msg%22:null,%22metadata%22:%7B%7D,%22credential%22:%7B%22object%22:%22credential%22,%22upacp_wap%22:%7B%22accessType%22:%220%22,%22backUrl%22:%22https://notify.pingxx.com/notify/charges/ch_101210302509061120000005%22,%22bizType%22:%22000000%22,%22certId%22:%2274147250231%22,%22channelType%22:%2208%22,%22currencyCode%22:%22156%22,%22customerIp%22:%2261.135.18.98%22,%22encoding%22:%22UTF-8%22,%22frontUrl%22:%22http://www.datanghuyu.cn/pay/success.html?env=majiang%22,%22merId%22:%22802110048161254%22,%22orderDesc%22:%22258%E4%B8%AA%E5%A4%A7%E5%94%90%E9%BA%BB%E5%B0%86%E5%85%83%E5%AE%9D%22,%22orderId%22:%2223954753%22,%22payTimeout%22:%2220210302144833%22,%22reqReserved%22:%22ch_101210302509061120000005%22,%22signMethod%22:%2201%22,%22txnAmt%22:%2212900%22,%22txnSubType%22:%2201%22,%22txnTime%22:%2220210302134833%22,%22txnType%22:%2201%22,%22version%22:%225.0.0%22,%22signature%22:%22TCjO4vkGvznHc7zxhX5uUafmZq0vIn7BYqIWzSzISqY/mB9eTsqzbNWl/+g5Yj4Y0SJvTkmzVoBCtU/n1FOBaEUMkVxr8Gu2l6pBeepMMfy3uRLUXxnzH4isIA07k/9eoIozrYcHHpE6/0EYJqJBP1+H6XCoLRLLi7SDFMU2kSGejRbskBlJb9nshOH/F9clLm8auLvbJtfCk7s2mDX+vbJjHenIQeOxnMrSP64MROz93AA/v9HFp3iBV94NJJAKdVvKrUHPePgKtA30jitwxqG98e/w0KJ+HxNG0Yv+dyaYkLCdAQ5LvLlRY0j04C17hzOj9d0SW11krXxsYDHpQw==%22%7D%7D,%22description%22:null%7D%22%7D';
+//     let content = decodeURIComponent(str);
+//     let reg = /[\S+\s+]"url":"(\S+)"/g;
+//     console.log(reg.exec(content)[1]);
+
+
+//     // 一个简单的测试：关于值传递和引用传递
+//     function changeAgeAndReference(person) {
+//         person.age = 25;
+//         person = { 
+//             name: 'John',
+//             age: 50
+//         };
+//         return person;
+//     }
+//     var personObj1 = {
+//         name: 'Alex',
+//         age: 30
+//     };
+//     var personObj2 = changeAgeAndReference(personObj1);
+//     console.log(personObj1);
+//     console.log(personObj2);
+
+//     // 单例设计模式：
+
+
+
+//     // 高阶函数
+//     // function add(x, y, f) {
+//     //     return f(x) + f(y);
+//     // }
+//     // var result = add(-5, 6, Math.abs);
+//     // console.log(result);
+
+//     // 闭包
+//     // 1.要了解闭包先要了解一下js中的作用域：全局和局部作用域；js中没有块级作用域：比如if语句中定义的变量
+//     // 无块级作用域
+//     if(true) {
+//         var a = 111;
+//     }
+//     console.log(a);
+
+//     function test() {
+//         var b = 222;
+//     }
+//     test();
+//     // console.log(b); // 报错
+
+//     // 如果在函数中定义一个变量没有使用var关键字，则该变量是一个全局变量
+//     function test2() {
+//         c = 333;
+//     }
+//     test2();
+//     console.log(c);
+
+//     // 那么我们怎样才能在全局中访问局部变量呢？
+//     function test3() {
+//         var a3 = 444;
+//         function t3() {
+//             return a3;
+//         }
+//         return t3;
+//     }
+//     console.log(test3()());
+//     // 什么是闭包？其实上面的t3就是一个闭包
+//     // 个人理解：闭包其实就是在函数内部嵌套的另一个函数，它的作用就是可以让全局作用域访问局部作用域中的变量
+//     // 使用闭包的作用：读取函数内部的变量；让这些变量始终保持在内存中；
+//     function f1() {
+//         var n = 999;
+//         nAdd = function() {
+//             n +=1;
+//         }
+//         function f2() {
+//             console.log(n);
+//         }
+//         return f2
+//     }
+//     var result = f1();
+//     result(); // 999
+//     nAdd(); // n = 1000
+//     result(); // 1000
+    
+
+//     // javascript运行机制
+//     // 1.js运行是按照语句出现的顺序执行的
+//     var aa = 1;
+//     console.log(aa);
+//     var bb = 2;
+//     console.log(bb);
+
+//     setTimeout(function() {
+//         console.log('定时器开始啦');
+//     });
+
+//     new Promise(function(resolve) {
+//         console.log('创建一个新的Promise');
+//         resolve();
+//     }).then(function() {
+//         console.log('执行then');
+//     });
+//     console.log('代码执行结束');
+//     // 2.js是单线程语言，js中的任务：同步任务和异步任务
+//     // 同步任务会直接在主线程中执行，异步任务会进入一个event table，然后注册回调函数，当主线程上的任务执行完之后，主线程会调用事件队列中的
+//     // 回调函数进行执行
+//     // js引擎中存在monitoring process进程，会持续不断的检查主线程是否为空
+//     // var data = [];
+//     // $.ajax({
+//     //     url: 'www.baidu.com',
+//     //     data: data,
+//     //     success: function() {
+//     //         // 回调函数代码
+//     //     }
+//     // });
+
+//     // 3.setTimeout: 准确的说应该是x秒之后将task()放入事件队列中而不是立即执行
+//     setTimeout(function() {
+//         // task()
+//     }, 3000);
+//     // sleep(10000000); // 主线程sleep完之后再执行task
+//     // 任务：宏任务和微任务
+//     setTimeout(function() {
+//         console.log("setTimeout");
+//     });
+//     new Promise(function(resolve) {
+//         console.log('promise');
+//         resolve();
+//     }).then(function() {
+//         console.log('then');
+//     });
+//     console.log('console');
+
+//     // 终极例子
+//     console.log('1');
+
+//     setTimeout(function() {
+//         console.log('2');
+//         // process.nextTick(function() {
+//         //     console.log('3');
+//         // })
+//         new Promise(function(resolve) {
+//             console.log('4');
+//             resolve();
+//         }).then(function() {
+//             console.log('5')
+//         })
+//     })
+//     // process.nextTick(function() {
+//     //     console.log('6');
+//     // })
+//     new Promise(function(resolve) {
+//         console.log('7');
+//         resolve();
+//     }).then(function() {
+//         console.log('8')
+//     })
+
+//     setTimeout(function() {
+//         console.log('9');
+//         // process.nextTick(function() {
+//         //     console.log('10');
+//         // })
+//         new Promise(function(resolve) {
+//             console.log('11');
+//             resolve();
+//         }).then(function() {
+//             console.log('12')
+//         })
+//     })
+//     // function func1() {
+//     //     var a = 999;
+//     //     function func2() {
+//     //         console.log(a);
+//     //     }
+//     //     return func2;
+//     // }
+
+//     // var func = func1();
+//     // func();
+
+//     // var name = "The Window";
+//     // var object = {
+//     //     name: "My Object",
+//     //     getNameFunc: function() {
+//     //         return function() {
+//     //             return this.name;
+//     //         }
+//     //     }
+//     // }
+//     // console.log(object.getNameFunc()());
+//     // // console.log(object.getNameFunc().call(object));
+
+//     // var name2 = "The Window";
+//     // var object2 = {
+//     //     name: "My Object",
+//     //     getNameFunc: function() {
+//     //         var that = this;
+//     //         return function() {
+//     //             return that.name;
+//     //         }
+//     //     }
+//     // };
+//     // console.log(object2.getNameFunc()());
+
+
+// 	// var flyer = jQuery('<img class="flyer-img" src="http://ossimg.wandougongzhu.cn/6deeeac606f5283ac44807046676cad4.png@360w_4000h_1l.webp">'); //抛物体对象   
+// 	// 	flyer.fly({   
+//     //         start: {   
+//     //             left: event.pageX,//抛物体起点横坐标   
+//     //             top: jQuery(window).height() - 30 //抛物体起点纵坐标   
+//     //         },   
+//     //         end: {   
+//     //             left: jQuery('.fixed-operate-bar-cart-box').offset().left + 25,//抛物体终点横坐标   
+//     //             top: jQuery(window).height() - 30, //抛物体终点纵坐标   
+//     //         },   
+//     //         onEnd: function() {   
+//     //             $('.flyer-img').hide()
+// 	// 		},
+// 	// 		speed: 0.8   
+//     //     });
+
+// 	// $('body').on('click', '.parabola-test.begin', function() {
+// 	// 	addCar({
+// 	// 		begin: $('.parabola-test.begin'),
+// 	// 		end: $('.parabola-test.end'),
+// 	// 		img: './img/logo.jpg',
+// 	// 		callback: function() {
+// 	// 			console.log('动画完成');
+// 	// 		}
+// 	// 	})
+// 	// });
+
+// 	// var addCar = function(opt){
+//     //     return (function(){
+//     //         var parabola = function(opt){
+//     //             this.init(opt);
+//     //         };
+//     //         parabola.prototype = {
+//     //             init: function(opt){
+//     //                 var flyO = this.calculatedValue(opt),
+//     //                     flyDom = this.creatHtml(flyO.site,flyO.img),
+//     //                     flyRule = this.creatRule(flyO.coord);
+
+//     //                 document.getElementsByTagName('head')[0].appendChild(flyRule);
+//     //                 document.body.appendChild(flyDom);
+//     //                 $('.parabola-animation').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend','.parabola-box-ver',function(){
+//     //                     var _pfly = $('.parabola-animation');
+//     //                     if(_pfly.length) _pfly.remove();
+//     //                     flyO.callback();
+//     //                 });
+//     //             },
+// 	// 			creatHtml : function(site,img){
+//     //                 var imgHtml = img == '' ? '' : '![]('+img+')';
+
+//     //                 var html = '<div class="parabola-box-hor">\
+//     //                                 <div class="parabola-box-ver">\
+//     //                                     '+imgHtml+'\
+//     //                                 </div>\
+//     //                             </div>';
+
+//     //                 var parentBox = document.createElement('div');
+//     //                 parentBox.innerHTML = html;
+//     //                 parentBox.setAttribute('class','parabola-animation');
+
+//     //                 var frag = document.createDocumentFragment();
+//     //                 frag.appendChild(parentBox);
+
+//     //                 var verBox = frag.querySelector('.parabola-box-ver'),
+//     //                     horBpx = frag.querySelector('.parabola-box-hor');
+//     //                 verBox.style.left = site.left + 'px';
+//     //                 verBox.style.top = site.top + 'px';
+
+//     //                 if(site.cubic) {
+//     //                     verBox.setAttribute("class",'parabola-box-ver top');
+//     //                     horBpx.setAttribute("class",'parabola-box-hor top');
+//     //                 }
+//     //                 return frag;
+//     //             },
+//     //             creatRule:function(coord){
+//     //                 var cssAnimation = document.createElement('style');
+//     //                 cssAnimation.type="text/css";
+//     //                 var rules = "\
+//     //                         @-webkit-keyframes parabola-hor-animation{\
+//     //                             0%{\
+//     //                                 -webkit-transform: translate(0px, 0px);\
+//     //                                         transform: translate(0px, 0px);\
+//     //                             }\
+//     //                             10%{\
+//     //                                 -webkit-transform: translate(0px, 0px);\
+//     //                                         transform: translate(0px, 0px);\
+//     //                             }\
+//     //                             100%{\
+//     //                                 -webkit-transform: translate("+coord.x+"px, 0px);\
+//     //                                         transform: translate("+coord.x+"px, 0px);\
+//     //                             }\
+//     //                         }\
+//     //                         @keyframes parabola-hor-animation{\
+//     //                             0%{\
+//     //                                 -webkit-transform: translate(0px, 0px);\
+//     //                                         transform: translate(0px, 0px);\
+//     //                             }\
+//     //                             10%{\
+//     //                                 -webkit-transform: translate(0px, 0px);\
+//     //                                         transform: translate(0px, 0px);\
+//     //                             }\
+//     //                             100%{\
+//     //                                 -webkit-transform: translate("+coord.x+"px, 0px);\
+//     //                                         transform: translate("+coord.x+"px, 0px);\
+//     //                             }\
+//     //                         }\
+//     //                         @-webkit-keyframes parabola-ver-animation{\
+//     //                             0%{\
+//     //                                 -webkit-transform: translate(0px, 0px);\
+//     //                                         transform: translate(0px, 0px);\
+//     //                             }\
+//     //                             10%{\
+//     //                                 -webkit-transform: translate(0px, "+coord.os+"px);\
+//     //                                         transform: translate(0px, "+coord.os+"px);\
+//     //                             }\
+//     //                             100%{\
+//     //                                 -webkit-transform: translate(0px,"+coord.y+"px);\
+//     //                                         transform: translate(0px,"+coord.y+"px);\
+//     //                             }\
+//     //                         }\
+//     //                         @keyframes parabola-ver-animation{\
+//     //                             0%{\
+//     //                                 -webkit-transform: translate(0px, 0px);\
+//     //                                         transform: translate(0px, 0px);\
+//     //                             }\
+//     //                             10%{\
+//     //                                 -webkit-transform: translate(0px, "+coord.os+"px);\
+//     //                                         transform: translate(0px, "+coord.os+"px);\
+//     //                             }\
+//     //                             100%{\
+//     //                                 -webkit-transform: translate(0px,"+coord.y+"px);\
+//     //                                         transform: translate(0px,"+coord.y+"px);\
+//     //                             }\
+//     //                         }\
+//     //                     ";
+//     //                 cssAnimation.innerHTML = rules;
+//     //                 return cssAnimation;
+// 	// 			},
+// 	// 			calculatedValue:function(opt){
+//     //                 var fly = {
+//     //                     begin:'',
+//     //                     end: '',
+//     //                     img : '',
+//     //                     callback:function(){
+//     //                         console.log('动画完成');
+//     //                     }
+//     //                 },
+//     //                 vData = {
+//     //                     site:{
+//     //                         left: 0,
+//     //                         top: 0 ,
+//     //                         cubic: false
+//     //                     },
+//     //                     img: '',
+//     //                     coord:{
+//     //                         x: 0 ,
+//     //                         y: 0 ,
+//     //                         os: 0
+//     //                     },
+//     //                     callback: function(){}
+//     //                 },
+//     //                 _this = this ;
+
+//     //                 if( typeof opt == 'object'){
+//     //                     fly = $.extend(true, fly, opt);
+//     //                 }
+
+//     //                 //如果没有这两个元素中的其中一个则终止
+//     //                 if(!fly.begin.length || !fly.end.length) return vData;
+//     //                 /**
+//     //                  * beginCrood 获取开始元素的位置
+//     //                  * endCrood   获取结束元素的位置
+//     //                  */
+//     //                 var beginCrood = fly.begin[0].getBoundingClientRect(),
+//     //                     endCrood = fly.end[0].getBoundingClientRect();
+
+//     //                 /*!
+//     //                  *  购物车动画出现的位置
+//     //                  *  left: 开始元素的left+width/2
+//     //                  *  top: 开始元素的top
+//     //                  *  购物车动画结束的位置
+//     //                  *  x: 结束元素的left+width/2 再减去购物车动画出现的位置的left
+//     //                  *  y: 结束元素的top+height/2 再减去购物车动画出现的位置的top
+//     //                  */
+//     //                 /**
+//     //                  * 全部减去 18是因为购物车宽度和高度都是35px;一半难得算(-_-),就填18
+//     //                  */
+//     //                 vData.site.left = beginCrood.left + parseInt(beginCrood.width/2,10) -18;
+//     //                 vData.site.top = beginCrood.top -18;
+//     //                 vData.coord.x = endCrood.left + parseInt(endCrood.width/2,10) - vData.site.left -18;
+//     //                 vData.coord.y = endCrood.top + parseInt(endCrood.height/2,10) - vData.site.top -18;
+//     //                 vData.coord.os = -50;
+//     //                 vData.img = fly.img;
+//     //                 vData.callback = fly.callback;
+//     //                 if(beginCrood.top > endCrood.top) vData.site.cubic = true;
+                    
+//     //                 return vData;
+//     //             }
+//     //         }
+//     //         return new parabola(opt);
+//     //     })();
+//     // }
+
+// // $('<div class="test"></div>').fly({
+// //       start: {top: 542, left: 622},
+// //       end: {top: 142, left: 322, width: 20, height: 20},
+// //       onEnd: function(){
+// //         alert('End');
+// //         this.destory();
+// //       }
+// //     });
+//     // window.onload = function() {
+// 	// 	function addElements(CLASSNAME_OUTER, CLASSNAME_INNER) {
+// 	// 		var outerWrapper = document.createElement('div');
+// 	// 		var outer = null;
+// 	// 		var inner = null;
+// 	// 		for (var i = 0; i < 5; i++) {
+// 	// 			outer = document.createElement('div');
+// 	// 			outer.classList.add(CLASSNAME_OUTER);
+// 	// 			outer.classList.add('point-pre');
+// 	// 			inner = document.createElement('div');
+// 	// 			inner.setAttribute('class', CLASSNAME_INNER);
+// 	// 			outer.appendChild(inner);
+// 	// 			outerWrapper.appendChild(outer);
+// 	// 			inner = null;
+// 	// 			outer = null;
+// 	// 		}
+// 	// 		document.body.appendChild(outerWrapper)
+// 	// 		return outerWrapper
+// 	// 	}
+
+// 	// 	function getEndCoordinate(ele) {
+// 	// 		var left = ele.offsetLeft;
+// 	// 		var top = ele.offsetTop;
+// 	// 		return [left, top]
+// 	// 	}
+
+// 	// 	function getElementMyShowHide(parentElement, CLASSNAME_SHOW_NONE) {
+// 	// 		var result = null;
+// 	// 		var childElements = parentElement.getElementsByClassName(CLASSNAME_SHOW_NONE);
+// 	// 		result = childElements[0];
+// 	// 		return result;
+// 	// 	}
+
+// 	// 	var CLASSNAME_OUTER = 'outer';
+// 	// 	var CLASSNAME_INNER = 'inner';
+
+// 	// 	// 增加小球元素
+// 	// 	var outerWrapper = addElements(CLASSNAME_OUTER,CLASSNAME_INNER);
+// 	// 	var endLeft = getEndCoordinate(document.getElementById('ttt'))[0];
+// 	// 	var endTop  = getEndCoordinate(document.getElementById('ttt'))[1];
+
+// 	// 	// 真实中的购物车实现是这里的click事件绑在添加购物车的按钮或者类似按钮的dom上
+// 	// 	window.addEventListener('click', function (event) {
+// 	// 		// 当双击的时候,小球会从(0,0)的位置落入目标区,以下为当双击的时候,只会第一次点击的setTimeout会被清除
+// 	// 		// 所以只会显示一次从点击地点到目标区的运动
+// 	// 		// 但是依然会执行第一次的逻辑,因为内部两个setTimeout没有被清除
+// 	// 		clearTimeout(timer);
+// 	// 		var timer = setTimeout(function () {
+// 	// 			var left = event.offsetX;
+// 	// 			var top  = event.offsetY;
+// 	// 			// 定位球元素
+// 	// 			var childElement = getElementMyShowHide(outerWrapper,'point-pre');
+// 	// 			childElement.style.left = left + 'px';
+// 	// 			childElement.style.top = top + 'px';
+// 	// 			// 计算坐标差
+// 	// 			var leftDifference = -(left - endLeft);
+// 	// 			var topDifference = -(top - endTop);
+// 	// 			// 开始
+// 	// 			childElement.classList.remove('point-pre');
+// 	// 			setTimeout(function () {
+// 	// 				childElement.getElementsByClassName('inner')[0].style.transform = `translateY(${topDifference}px)`;
+// 	// 				childElement.style.transform = `translateX(${leftDifference}px)`;
+// 	// 				setTimeout(function () {
+// 	// 					childElement.getElementsByClassName('inner')[0].setAttribute('style', '');
+// 	// 					childElement.setAttribute('style', '');
+// 	// 					childElement.classList.add('point-pre');
+// 	// 				}, 350);
+// 	// 			}, 1);
+// 	// 		}, 30);
+// 	// 	});
+//     // }
 </script>
 </body>
 </html>

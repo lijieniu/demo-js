@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>浏览器</title>
+    <!-- <link rel="stylesheet" href="./filedownload/static/index.css"> -->
+    <style>
+        .parent {
+            color: red;
+            /* position: relative; */
+        }
+        .child {
+            font-weight: bold;
+        }
+        /* .layer {
+            z-index: 2;
+            transform: translateX(20px);
+        } */
+    </style>
+    <script>
+        for (let index = 0; index < 100000; index++) {
+            document.write('<div>aaa</div>');
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <img src="https://ossimg.wandougongzhu.cn/c82836711789f46a5b50eeee18c45152.jpg" alt="">
+    </div>
+    <div class="parent">
+        <div class="child" style="font-size: 18px;">元素</div>
+        <div class="layer">不同层</div>
+    </div>
+</body>
+</html>

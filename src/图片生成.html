@@ -159,11 +159,19 @@
             </div>
         </div>
     </div>
+
+    <div class="input">
+        姓名：<input type="text">hhah<span>hhh<div>aaa</div>
+    </div>
     
     <script src="https://cdn.staticfile.org/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(function() {
+            let inputText = $('.input');
+            console.log(inputText);
+            let inputText2 = document.querySelector('.input');
+            console.log(inputText2.innerText);
             var inputList = document.querySelectorAll('.propInput');
         var realValueList = document.querySelectorAll('.realValue');
         for(var i = 0; i < inputList.length; i++) {
