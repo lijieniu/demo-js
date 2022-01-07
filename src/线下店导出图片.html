@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片生成工具</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        [v-cloak] {
+          display: none;
+        }
+        #wdStableContainer {
+          overflow-y: scroll;
+        }
+        #realContent, #realContent-attr {
+            width: 877px;
+            height: 1240px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 24px;
+            position: relative;
+        }
+        .tips {
+          width: 100%;
+          height: 100px;
+          background-color: #000000;
+          color: #ffffff;
+          font-size: 42px;
+          font-weight: bold;
+          line-height: 100px;
+          text-align: center;
+          display: inline-block;
+        }
+        .goods-img {
+          width: 654px;
+          height: 654px;
+          display: block;
+          margin: 0 auto;
+        }
+        .slogan {
+          width: 100%;
+          text-align: center;
+          font-size: 64px;
+          color: #c4171a;
+          text-align: center;
+          font-weight: bold;
+        }
+        .goods-name {
+          width: 742px;
+          height: 140px;
+          overflow-y: scroll;
+          font-size: 47px;
+          text-align: center;
+          margin: 0 auto;
+          font-weight: bold;
+        }
+        .bottom {
+          width: 742px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+        }
+        .price {
+          color: #c4171a;
+          font-weight: bold;
+        }
+        .price-icon {
+          font-size: 28px;
+        }
+        .price-text {
+          font-size: 70px;
+        }
+        .tax {
+          font-size: 38px;
+          font-weight: bold;
+          color: #000000;
+        }
+        .tax span {
+          color: #c4171a;
+        }
+        .bottom-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+        }
+        .bottom-right img {
+          width: 252px;
+          height: 101px;
+        }
+        .qrcode {
+          width: 198px;
+          height: 198px;
+        }
+        .attr-bottom {
+          position: absolute;
+          bottom: 24px;
+          transform: translateX(-50%);
+          left: 50%;
+          background-color: #ffffff;
+          z-index: 999;
+        }
+        .attr-bottom .bottom-right {
+          width: 574px;
+          background-color: #c4171a;
+          color: #ffffff;
+          font-size: 38px;
+          font-weight: bold;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+        }
+        .attr {
+          width: 763px;
+          margin: 0 auto;
+          padding: 24px 0;
+          height: 840px;
+          overflow: scroll;
+        }
+        .attr-name {
+          font-size: 25px;
+          font-weight: bold;
+          color: #000000;
+        }
+        .attr-content {
+          font-size: 25px;
+          font-weight: normal;
+          color: #000000;
+        }
+    </style>
+</head>
+<body>
+  <div id="wdStableContainer" v-cloak>
+    <el-upload
+      class="upload-demo"
+      drag
+      action=""
+      :auto-upload="false"
+      :on-change="uploadHandler"
+      multiple>
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+    </el-upload>
+    <el-button @click="downloadImgs" type="primary">生成前景图片</el-button>
+    <el-button @click="downloadBgImgs" type="primary">生成背景图片</el-button>
+    <div id="realContent">
+      <span class="tips">温馨提示：结算时带上我，不用带实物</span>
+      <img class="goods-img" :src="currentGoods.goods_image" alt="">
+      <div class="slogan">{{currentGoods.slogon}}</div>
+      <div class="goods-name">{{currentGoods.goods_name}}</div>
+      <div class="bottom">
+        <div class="bottom-left">
+          <div class="price">
+            <span class="price-icon">￥</span>
+            <span class="price-text">{{currentGoods.price}}</span>
+          </div>
+          <div class="tax">此价格包含<span>{{currentGoods.tax * 100}}%</span>消费税</div>
+        </div>
+        <div class="bottom-right">
+          <img id="barcode" />
+        </div>
+      </div>
+    </div>
+    <div id="realContent-attr">
+      <span class="tips">温馨提示：结算时带上我，不用带实物</span>
+      <div class="attr">
+        <div v-for="attr in currentGoods.attrs">
+          <span class="attr-name">{{attr.name}}</span>
+          <span class="attr-content">{{attr.content}}</span>
+        </div>
+      </div>
+      <div class="bottom attr-bottom">
+        <div class="bottom-left">
+          <img class="qrcode" :src="currentGoods.goods_image" alt="">
+        </div>
+        <div class="bottom-right">
+          <span>微信扫码关注公众号</span>
+          <span>小程序上传购买 顺丰送货到家</span>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <script src="https://oss.wandougongzhu.cn/lib/vue/2.6.14/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="https://oss.wandougongzhu.cn/lib/xlsx/0.17.4/dist/xlsx.core.min.js"></script>
+  <script src="https://s4.wandougongzhu.cn/s/ae/xlsxutil_250e84.js"></script>
+  <script src="https://cdn.staticfile.org/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://oss.wandougongzhu.cn/lib/jszip/3.7.1/dist/jszip.min.js"></script>
+  <script src="https://oss.wandougongzhu.cn/lib/@elastic/filesaver/1.1.2/file-saver.js"></script>
+  <script src="https://oss.wandougongzhu.cn/lib/jsbarcode/3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script>
+    new Vue({
+      el: '#wdStableContainer',
+      data() {
+        return {
+          currentGoods: {}
+        }
+      },
+      mounted() {
+        
+      },
+      methods: {
+        /**
+         * 上传商品列表
+         */
+        uploadHandler(file) {
+          console.log(file);
+          let e = {
+            target: {
+              files: [file.raw]
+            }
+          }
+          XlsxUtil.handleFile({skuid: 'skuid', goods_name: '商品名称', slogon: 'slogon', price: '含税价', goods_id: '商品id', tax: '税率', goods_image: '图片', attrs: '属性组'}, e, (xlsxList) => {
+              this.goodsList = xlsxList;
+          });
+        },
+        async downloadBgImgs() {
+          var zip = new JSZip();
+          var img = zip.folder('images');
+          for(let i = 0; i < 2; i++) {
+            this.currentGoods = this.goodsList[i];
+            this.currentGoods.attrs = JSON.parse(this.currentGoods.attrs);
+            this.currentGoods.goods_image = await this.loadImg('https://s.wandougongzhu.cn/s/b2/--1_9b9127.png');
+            let extraName = '';
+            $('.attr').scrollTop(10);
+            if($('.attr').scrollTop() > 0) {
+              extraName = '超出高度';
+              $('.attr').scrollTop(0);
+              $('.attr').css({
+                overflow: 'hidden'
+              });
+            }
+            await this.sleep(500);
+            let goodsImg = await this.createImgs('realContent-attr');
+            img.file('bg_' + this.currentGoods.skuid + (extraName ? '_' + extraName : ''), goodsImg, {base64: true});
+          }
+          zip.generateAsync({type: 'blob'}).then(content => {
+            saveAs(content, 'imgs_bg.zip');
+          });
+        },
+        /**
+         * 下载前景图片
+         */
+        async downloadImgs() {
+          var zip = new JSZip();
+          var img = zip.folder('images');
+          for(let i = 0; i < 2; i++) {
+            this.currentGoods = this.goodsList[i];
+            this.currentGoods.goods_image = this.currentGoods.goods_image.replace('inagora-public:', 'https://ossimg.wonderfull.cn/') + '?x-oss-process=image/resize,w_600,h_600,m_lfit';
+            this.currentGoods.goods_image = await this.loadImg(this.currentGoods.goods_image);
+            this.createBarcode(this.currentGoods.skuid);
+            let extraName = '';
+            $('.goods-name').scrollTop(10);
+            if($('.goods-name').scrollTop() > 0) {
+              extraName = '超出高度';
+              $('.goods-name').scrollTop(0);
+              $('.goods-name').css({
+                overflow: 'hidden'
+              });
+            }
+            await this.sleep(500);
+            let goodsImg = await this.createImgs();
+            img.file('fg_' + this.currentGoods.skuid + (extraName ? '_' + extraName : ''), goodsImg, {base64: true});
+          }
+          zip.generateAsync({type: 'blob'}).then(content => {
+            saveAs(content, 'imgs.zip');
+          });
+        },
+        /**
+         * 生成条形码
+         */
+        createBarcode(skuid) {
+          $('#barcode').JsBarcode(skuid);
+        },
+        /**
+         * 加载图片
+         */
+        async loadImg(url) {
+          return new Promise(resolve => {
+            const img = new Image();
+            img.src = url;
+            img.crossOrigin = 'anonymous';
+            img.onload = function() {
+              const canvas = document.createElement('canvas');
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, img.width, img.height);
+              let dataUrl = canvas.toDataURL('image/png');
+              resolve(dataUrl);
+            }
+          });
+        },
+        sleep(time) {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve();
+            }, time);
+          });
+        },
+        createImgs(id) {
+          return new Promise(resolve => {
+            var targetDom = id ? $('#' + id) : $('#realContent');
+            var copyDom = targetDom.clone();
+            copyDom.width('877px');
+            copyDom.height('1240.25px');
+            $('body').append(copyDom);
+            // document.getElementById('realContent').innerHTML = document.querySelector('.propInput').value.replace(/\n/gm, '<br>');
+            html2canvas(copyDom[0]).then(function(canvas) {
+                resolve(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
+                // var imgUri = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+                // window.location.href = imgUri;
+                // canvas.setAttribute('width', 350);
+                // canvas.setAttribute('height', 600);
+                // var a = document.createElement('a');
+                // a.href = canvas.toDataURL();
+                // a.download = 'img_' + new Date().getTime() + '.png';
+                // a.click();
+            });
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>
