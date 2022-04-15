@@ -214,29 +214,106 @@
 	d ??= 2;
 	console.log(d);
 
-	// function fetch2() {
-	// 	return new Promise((resolve, reject) => {
-	// 		setTimeout(() => {
-	// 			// resolve(2);
-	// 			reject('error');
-	// 		}, 2000);
-	// 	});
-	// }
+	function fetch1() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(1);
+			}, 2000);
+		});
+	}
 
-	// function fetch3() {
-	// 	return new Promise((resolve, reject) => {
-	// 		setTimeout(() => {
-	// 			resolve(3);
-	// 			// reject('error');
-	// 		}, 3000);
-	// 	});
-	// }
+	function fetch2() {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(2);
+				// reject('error');
+			}, 3000);
+		});
+	}
 
-	// Promise.any([fetch1(), fetch2(), fetch3()]).then((res) => {
-	// 	console.log(res);
-	// }).catch(e => {
-	// 	console.log(e);
-	// });
+	async function findNewUser() {
+		return new Promise((resolve1, reject1) => {
+			let hasNew = false;
+			await Promise.all([1].map(item => {
+				return new Promise((resolve2, reject2) => {
+					setTimeout(() => {
+						hasNew = true;
+						resolve2(1);
+					}, 2000);
+				}).catch(e => {
+					reject(e);
+				});
+			})).then(async (res) => {
+				new Promise((resolve3, reject3) => {
+					if(hasNew) {
+						console.log('hasNew');
+						resolve(123);
+					}
+				})
+			}).catch(e => {
+				console.log(e);
+			});
+		});
+	}
+
+	(async function() {
+		let result = await findNewUser();
+		console.log('result: ', result);
+	})();
+
+
+// 	async findNewUser(keys: any) {
+//     this.app.slsLogger.info('one')
+//     let haveNew = false//是否有心或者回流用户
+//     let newUid = '' // 新用户或者回流用户的uid
+//     let config: LuckyCardData = this.data as LuckyCardData
+//     let _this = this
+// 	let returnResult = ''
+//     await Promise.all(keys.map(async item => {
+//       return new Promise(async (resolve, reject) => {
+//         try {
+//           const user = await _this.getUser(item)
+//           _this.app.slsLogger.info(user)
+//           if (user.isFirstToday) {
+//             _this.app.slsLogger.info(user.isFirstToday)
+//             //掉落福卡
+//             let cardId = _this.productLuckyCard(1) // 1代表首把福卡
+//             user.isFirstToday = false
+//             _.forEach(user.luckyCardNum, (card) => {
+//               if (card.id == cardId) {
+//                 card.num += 1
+//                 _this.app.slsLogger.info("获得一张福卡")
+//               }
+//             })
+//             //通知用户获得福卡，客户端推送
+//             const ctx = _this.app.createAnonymousContext();
+//             const msg = { eventType: "luckyCardGet", cardId: cardId };
+//             const body = { item, msg };
+//             await ctx.helper.gameNotice(body);
+//             await _this.setUser(item, user)
+//           }
+//           if (user.isNewOrReturnUser && user.provideCardNum < config.provideCardLimit && moment().isBefore(user.expireTime)) { //判断提供福卡数量，以及是不是新回流用户, 过期时间
+//             haveNew = true
+//             _this.app.slsLogger.info("有新用户")
+//             newUid = item//扣谁的都行，就扣后面的吧
+//           }
+//           resolve(123);
+//         } catch (error) {
+//           reject(error);
+//         }
+//       })
+//     })).then(async function () {
+// 		returnResult = await new Promise((resolve, reject) => {
+// 			try{
+// 			resolve({ haveNew: haveNew, newUid: newUid })
+// 			}catch (error) {
+// 			reject(error);
+// 			}
+// 		})
+
+//     })
+// 	return returnResult;
+//   }
 
 
 	// const vm = new Map();
