@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://oss.wandougongzhu.cn/lib/@inagora/wd-view/0.0.4/dist/index.css" />
+    <title>this</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+  <div id="app">
+    <wd-layout has-sider="true">
+      <wd-layout-sider>
+        <div class="logo">
+          <img src="https://s1.wandougongzhu.cn/s/ed/logo2x_b9a58d.png" />
+          <span>{{msg}}</span>
+        </div>
+        <wd-menu
+          :menu-list="menuList"
+          theme="dark"
+          @click="menuClickHandler"
+        />
+      </wd-layout-sider>
+      <wd-layout-content>
+        
+      </wd-layout-content>
+    </wd-layout>
+  </div>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://oss.wandougongzhu.cn/lib/@inagora/wd-view/0.0.4/dist/index.js"></script>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          menuList: [
+            {
+              text: "表单组件",
+              icon: "",
+              open: true,
+              submenu: [
+                {
+                  text: "Button",
+                  type: "button",
+                },
+                {
+                  text: "Checkbox",
+                  type: "checkbox",
+                },
+                {
+                  text: "DatePicker",
+                  type: "datepicker",
+                },
+                {
+                  text: "Dropdown",
+                  type: "dropdown",
+                },
+                {
+                  text: "Input",
+                  type: "input",
+                },
+                {
+                  text: "InputNumber",
+                  type: "input-number",
+                },
+                {
+                  text: "Link",
+                  type: "link",
+                },
+                {
+                  text: "Radio",
+                  type: "radio",
+                },
+                {
+                  text: "Select",
+                  type: "select",
+                },
+                {
+                  text: "Switch",
+                  type: "switch",
+                },
+                {
+                  text: "Form",
+                  type: "form",
+                },
+              ],
+            },
+            {
+              text: "列表组件",
+              icon: "",
+              submenu: [
+                {
+                  text: "Table",
+                  type: "table",
+                },
+                {
+                  text: "Pagination",
+                  type: "pagination",
+                },
+              ],
+            },
+            {
+              text: "其他组件",
+              icon: "",
+              submenu: [
+                {
+                  text: "Layout",
+                  type: "layout",
+                },
+                {
+                  text: "Menu",
+                  type: "menu",
+                },
+                {
+                  text: "其他",
+                  type: "other",
+                  open: true,
+                  submenu: [
+                    {
+                      text: "Layout",
+                      type: "layout",
+                    },
+                    {
+                      text: "Menu",
+                      type: "menu",
+                    },
+                    {
+                      text: "其他",
+                      type: "other",
+                    },
+                  ],
+                },
+              ],
+            },
+          ]
+        }
+      },
+      setup() {
+        const msg = ref('hello');
+        return {
+          msg
+        }
+      }
+    })
+      .use(WdView)
+      .mount('#app');
+  </script>
+</body>
+</html>
