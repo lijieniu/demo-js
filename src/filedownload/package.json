@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fontmin": "^0.9.8",
-    "http-proxy": "^1.18.1"
+    "fontmin": "^0.9.9",
+    "gulp": "3.9.1",
+    "http-proxy": "^1.18.1",
+    "otf2ttf": "^1.1.2"
   }
 }
