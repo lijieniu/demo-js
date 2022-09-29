@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "fontmin": "^0.9.9",
-    "gulp": "3.9.1",
+    "gulp": "4.0.2",
     "http-proxy": "^1.18.1",
     "otf2ttf": "^1.1.2"
   }
