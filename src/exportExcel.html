@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>图片生成工具</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <style></style>
+  </head>
+  <body>
+    <script src="https://oss.wandougongzhu.cn/lib/xlsx/0.17.4/dist/xlsx.core.min.js"></script>
+    <script src="https://s4.wandougongzhu.cn/s/ae/xlsxutil_250e84.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://oss.wandougongzhu.cn/lib/@elastic/filesaver/1.1.2/file-saver.js"></script>
+    <script>
+      let data = [
+        {
+          topic_username: "陶叶薇",
+          topic_username_en: "taoyewei",
+          title: "IT审计的前世今生和未来",
+          desc: "带大家去了解IT审计的那些事儿，去认识技术事业部那个最神秘的岗位！",
+          avgValue: null,
+        },
+        {
+          topic_username: "陶叶薇",
+          topic_username_en: "taoyewei",
+          title: "IT审计的前世今生",
+          desc: "带大家去了解IT审计的那些事儿，去认识技术事业部那个最神秘的岗位！",
+          avgValue: "3.60",
+        },
+        {
+          topic_username: "何旺玲",
+          topic_username_en: "hewangling",
+          title: "浅读交互设计",
+          desc: "聊聊生活中的交互设计",
+          avgValue: "4.11",
+        },
+        {
+          topic_username: "赵江兵",
+          topic_username_en: "zhaojiangbing",
+          title: "了解区块链，比特币",
+          desc: "区块链，比特币出现以来，我们从观望到投资者非常热情，到我们开始讨论区块链技术如何创新，如何对我们产业进行推动。这次我们一起走进区块链的世界，了解学习区块链~",
+          avgValue: "3.80",
+        },
+        {
+          topic_username: "贾晖荣",
+          topic_username_en: "jiahuirong",
+          title: "《重构》",
+          desc: "重构—改善既有代码的设计",
+          avgValue: "3.48",
+        },
+        {
+          topic_username: "张鹏",
+          topic_username_en: "zhangpeng",
+          title: "《老照片の回春之术》",
+          desc: "“时光悄悄的过去，留下的只有回忆，回头看看我的兄弟都已到了半百年纪[旺柴]”，在这个什么都节奏快速的时代，照片是除记忆之外最好的留存，我们的青春，被融进了小小的四方照片。随着时间的发展，许多老照片都因为自然或人为原因，变得泛黄破损，就很可惜 。明天酉时，让我们一起聊聊照片的故事，并借助技术的力量，看区区一行代码如何“唤醒”照片本色。",
+          avgValue: "4.34",
+        },
+        {
+          topic_username: "刘朋科",
+          topic_username_en: "liupengke",
+          title: "浅尝辄止了解JPEG",
+          desc: "",
+          avgValue: "4.66",
+        },
+        {
+          topic_username: "马迁",
+          topic_username_en: "maqian",
+          title: "聊聊服务稳定性保障",
+          desc: "",
+          avgValue: "3.64",
+        },
+        {
+          topic_username: "王文颖",
+          topic_username_en: "wangwenying",
+          title: "元宇宙",
+          desc: "聊聊元宇宙那些事儿",
+          avgValue: "4.39",
+        },
+        {
+          topic_username: "王俊武",
+          topic_username_en: "laowu",
+          title: "不Gei放纵爱自由——家庭网络折腾记",
+          desc: "网络时代汹涌而来，您赵云的长枪，还在因为延迟而插不中敌人的要害吗？您女友的抖音，还在因为卡顿而无法秒杀心仪的商品吗？您别墅的装修，还在因为网络、宽带、路由器的选择而苦恼吗？那么请您千万走过路过不要错过，机不可失时不再来，买不买没关系，到屋里瞧一瞧，到屋里看一看。有钱的您捧个钱场，没钱的您捧个钱场。您买不了吃亏也买不了上当，抢到就是赚到...",
+          avgValue: null,
+        },
+        {
+          topic_username: "老武",
+          topic_username_en: "laowu",
+          title: "不Gei放纵爱自由——家庭网络折腾记",
+          desc: "网络时代汹涌而来，您赵云的长枪，还在因为延迟而插不中敌人的要害吗？您女友的抖音，还在因为卡顿而无法秒杀心仪的商品吗？您别墅的装修，还在因为网络、宽带、路由器的选择而苦恼吗？那么请您千万走过路过不要错过。",
+          avgValue: "4.79",
+        },
+        {
+          topic_username: "康芳",
+          topic_username_en: "kangfang",
+          title: "怎么花1000元价值能最大化",
+          desc: "",
+          avgValue: "4.28",
+        },
+        {
+          topic_username: "孙瑞川",
+          topic_username_en: "sunruichuan",
+          title: "人总是会犯错的",
+          desc: "",
+          avgValue: "4.20",
+        },
+        {
+          topic_username: "李一鸣",
+          topic_username_en: "liyiming",
+          title: "谈谈这只小海豚",
+          desc: "故弄玄虚的主题,其实就是聊聊mysql",
+          avgValue: "3.61",
+        },
+        {
+          topic_username: "张振",
+          topic_username_en: "zhangzhen",
+          title: "在现实世界让地球围着你的手机转",
+          desc: "",
+          avgValue: "3.22",
+        },
+        {
+          topic_username: "鄢文坤",
+          topic_username_en: "yanwenkun",
+          title: "EXCEL进阶之VBA",
+          desc: "讲讲EXCEL",
+          avgValue: "4.06",
+        },
+        {
+          topic_username: "张国华",
+          topic_username_en: "zhangguohua",
+          title: "手把手教你打造智能家居",
+          desc: "拉近你和比尔盖茨的距离",
+          avgValue: "4.24",
+        },
+        {
+          topic_username: "庄元丰",
+          topic_username_en: "zhuangyuanfeng",
+          title: "你的浏览器看起来很好用",
+          desc: "",
+          avgValue: "4.02",
+        },
+        {
+          topic_username: "罗昌贵",
+          topic_username_en: "luochanggui",
+          title: "豌豆APP之“魂”",
+          desc: "你想知道豌豆APP的灵魂是什么吗？老时间，老地点，等你一起来探索豌豆APP之“魂”~",
+          avgValue: "4.32",
+        },
+        {
+          topic_username: "史翔宇",
+          topic_username_en: "shixiangyu",
+          title: "看，这是我的码",
+          desc: '朋友，你是否有过破口大骂"这xx是谁写的代码，简直就是一x x"的亲身经历，如果有，那么这个分享应该会适合你；如果当你骂过之后，打开Git，猛然一哆嗦，发现这xx竟然是一年前自己的杰作，那么这个分享应该会很适合你。让我们共同期待明天的分享，咱们不见不散',
+          avgValue: "4.14",
+        },
+        {
+          topic_username: "付民",
+          topic_username_en: "fumin",
+          title: "我叫MT",
+          desc: "神马是MT，如果你想知道什么是MT的话，我现在就带你研究",
+          avgValue: "3.94",
+        },
+        {
+          topic_username: "徐铁城",
+          topic_username_en: "xutiecheng",
+          title: "ERP业务系统介绍",
+          desc: "也就是给大家简单介绍一下吧",
+          avgValue: "4.35",
+        },
+        {
+          topic_username: "尹毫",
+          topic_username_en: "yinhao",
+          title: "推荐架构工程师之“驭鬼“有术",
+          desc: '个性化推荐是个精明鬼，推荐系统架构师"驭鬼"有妙招~别急，明天听我来分享~',
+          avgValue: "4.20",
+        },
+        {
+          topic_username: "牛利杰",
+          topic_username_en: "niulijie",
+          title: "Http-Cookie",
+          desc: "",
+          avgValue: "3.99",
+        },
+        {
+          topic_username: "cc",
+          topic_username_en: "chenchao",
+          title: "如何成为一名合格的面试官",
+          desc: "面试的人级别比我高怎么办？题库不够了怎么办？不知道问什么问题怎么办？怎么面试一个CTO？来听听我的经验分享",
+          avgValue: "4.80",
+        },
+        {
+          topic_username: "崔清",
+          topic_username_en: "cuiqing",
+          title: "移动端爬虫技巧分享",
+          desc: "介绍移动平台接口分析及数据dump技巧",
+          avgValue: "4.24",
+        },
+        {
+          topic_username: "田坡敏",
+          topic_username_en: "tianpomin",
+          title: "真实的谎言 ",
+          desc: "我们是怎么被数字和事实欺骗的",
+          avgValue: "4.48",
+        },
+        {
+          topic_username: "杜杰",
+          topic_username_en: "dujie",
+          title: "20210616压测分享",
+          desc: "",
+          avgValue: "4.22",
+        },
+        {
+          topic_username: "丁建豪",
+          topic_username_en: "dingjianhao",
+          title: "MongoDB数据库应用场景",
+          desc: "",
+          avgValue: "2.88",
+        },
+        {
+          topic_username: "陈硕实",
+          topic_username_en: "chenshuoshi",
+          title: "豌豆K8S网络架构优化",
+          desc: "",
+          avgValue: "3.81",
+        },
+        {
+          topic_username: "解皇伟",
+          topic_username_en: "jiehuangwei",
+          title: "习惯是怎样炼成的",
+          desc: "",
+          avgValue: "4.02",
+        },
+        {
+          topic_username: "宋振华",
+          topic_username_en: "songzhenhua",
+          title: "手机快充简介",
+          desc: "",
+          avgValue: "3.13",
+        },
+        {
+          topic_username: "张尧",
+          topic_username_en: "zhangyao",
+          title: "如何战胜「阿尔法GO」",
+          desc: "",
+          avgValue: "4.16",
+        },
+      ];
+      let header = ["用户名", "ldap", "主题", "简介", "得分"];
+      const name = "分享排名统计";
+      let wb = XLSX.utils.book_new();
+      let ws_data = [...data];
+      ws_data.unshift(header);
+      let ws = XLSX.utils.json_to_sheet(ws_data, {
+        skipHeader: true,
+      });
+      XLSX.utils.book_append_sheet(wb, ws, name);
+      XLSX.writeFile(wb, name + ".xlsx");
+    </script>
+  </body>
+</html>
