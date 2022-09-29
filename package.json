@@ -1,0 +1,23 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "js learning demo",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lijieniu/demo-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lijieniu/demo-js/issues"
+  },
+  "homepage": "https://github.com/lijieniu/demo-js#readme",
+  "dependencies": {
+    "koa": "^2.13.4"
+  }
+}
